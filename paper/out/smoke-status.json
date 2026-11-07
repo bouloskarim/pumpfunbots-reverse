@@ -1,0 +1,108 @@
+{
+  "label": "SMOKE_NOT_A_24H_TRIAL",
+  "live": false,
+  "provenStrategy": false,
+  "profitClaim": false,
+  "edgeClaim": false,
+  "twentyFourHourTrial": {
+    "started": false,
+    "timezone": "UTC",
+    "start": null,
+    "end": null,
+    "autoStopAt": null,
+    "heartbeat": null,
+    "reason": "This process is a bounded smoke read on a cloud agent VM. The 24-hour clock is armed only by paper/host/run.mjs on a persistent host."
+  },
+  "strategy": "sniper",
+  "strategiesMixed": false,
+  "notSelected": {
+    "copy": "No wallet was chosen before this sample, and the advertised 80% list is not evidence.",
+    "graduation": "The virtual-SOL gauge is not a verified migration test, and there is no bonding-curve sell after complete."
+  },
+  "dataHealth": "ok",
+  "recording": {
+    "recordedAt": "2026-11-07T11:59:38.460Z",
+    "endpoint": "https://api.mainnet-beta.solana.com",
+    "slot": 466504267,
+    "signaturePage": 20,
+    "failedInPage": 4,
+    "transactionsFetched": 4,
+    "eventRows": 4,
+    "quoteRows": 3,
+    "createRows": 0,
+    "instructionCounts": {
+      "GetAccountDataSize": 1,
+      "InitializeImmutableOwner": 1,
+      "InitializeAccount3": 1,
+      "MultiHopSwap": 1,
+      "TransferChecked": 9,
+      "Buy": 2,
+      "GetFeesWithQuoteMint": 2,
+      "BuyExactQuoteInV3": 1,
+      "Swap2": 1,
+      "SellV2": 1,
+      "Sell": 2
+    },
+    "calls": 6,
+    "errors": [],
+    "heartbeat": [
+      {
+        "t": "2026-11-07T11:59:34.243Z",
+        "method": "getSlot",
+        "ok": true,
+        "slot": 466504267
+      },
+      {
+        "t": "2026-11-07T11:59:35.084Z",
+        "method": "getSignaturesForAddress",
+        "ok": true,
+        "rows": 20
+      },
+      {
+        "t": "2026-11-07T11:59:35.924Z",
+        "method": "getTransaction",
+        "ok": true,
+        "signature": "CYervf3wXZSxyireWkM7oVgrARsEhUtsPwwebSoz2E9QaKy9FXJfnJ6R3f4dB9R3i1UCsgpqxfzTovXtnGV9QMX",
+        "rows": 1
+      },
+      {
+        "t": "2026-11-07T11:59:36.764Z",
+        "method": "getTransaction",
+        "ok": true,
+        "signature": "4Js8sJfyRzfDQuhUpuaQQwqgvTN8hEiomDHJP23fvM4T3Gfvs576K1JDG1ZMBzvDNSRUKvLTvDH5d6hRLSsq166m",
+        "rows": 1
+      },
+      {
+        "t": "2026-11-07T11:59:37.606Z",
+        "method": "getTransaction",
+        "ok": true,
+        "signature": "2pcnL5cFHpEVKDJDTpj9yGc3qzfu8hZe8BfBKxwg5eMaWRzsmNZmwGZX9qUqTTumY9YRQL11NmBPXfbQdLBGC4Xd",
+        "rows": 1
+      },
+      {
+        "t": "2026-11-07T11:59:38.455Z",
+        "method": "getTransaction",
+        "ok": true,
+        "signature": "4VnPtazAyh7yDxcUAMRVwji943XURmbXPak2mCdBB9rVfiVscWSTLAecTeEayhnKDGix75TRxC37ssDxDzpedumn",
+        "rows": 1
+      }
+    ]
+  },
+  "evaluation": {
+    "tradeCountClosed": 0,
+    "tradeCountOpen": 0,
+    "netPnlSol": null,
+    "attempts": 0,
+    "rejections": [
+      {
+        "reason": "no_verified_create_in_sample",
+        "observedRows": 3,
+        "quoteRows": 3
+      }
+    ],
+    "note": "No fill. A sniper entry needs a verified create instruction and reserves in the same sample. This sample did not have one.",
+    "provenStrategy": false,
+    "profitClaim": false,
+    "usdBudgetApplied": false
+  }
+}

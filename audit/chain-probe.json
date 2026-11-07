@@ -1,0 +1,59 @@
+{
+  "label": "read-only public RPC probe, not a backtest and not a profit measurement",
+  "endpoint": "https://api.mainnet-beta.solana.com",
+  "paidService": false,
+  "program": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+  "probes": [
+    {
+      "kind": "getSlot",
+      "slot": 466497940
+    },
+    {
+      "kind": "getSignaturesForAddress",
+      "limit": 100,
+      "failed": 69,
+      "note": "69 of the newest 100 signatures were errors. This is program-wide traffic, not a win rate for any strategy in this repo."
+    },
+    {
+      "kind": "getTransaction",
+      "signature": "41D3pMCpBG9mStfsC7SuH2X7gz1zeibayz7BshfmeKQbA5QR4nFBtZecrLGyJ3bAj3beZ1H6D6dVXShk9qsJb9Uk",
+      "slot": 466498020,
+      "blockTime": 1794051432,
+      "blockTimeUtc": "2026-11-07T11:37:12.000Z",
+      "feeLamports": 1005000,
+      "instruction": "SellV3",
+      "programData": {
+        "prefixHex": "bddb7fd34ee661ee",
+        "prefixEquals": "sha256('event:TradeEvent')[:8]",
+        "length": 391,
+        "sol": 0.295279788,
+        "tokenUi": 6777473.34306,
+        "flagAtOffset56": 0,
+        "virtualSol": 37.30192843,
+        "realSol": 7.30192843,
+        "virtualMinusRealSol": 30,
+        "virtualMinusRealTokenRaw": "279900000000000"
+      }
+    },
+    {
+      "kind": "paced-sample",
+      "observedAt": "2026-11-07T11:37:52.781Z",
+      "newestBlockTimeUtc": "2026-11-07T11:37:48.000Z",
+      "batch": 20,
+      "failed": 11,
+      "instructionCounts": {
+        "Sell": 6,
+        "GetFeesWithQuoteMint": 4,
+        "TransferChecked": 4,
+        "Buy": 2
+      },
+      "tradeEvents": [
+        { "len": 391, "flag56": 0, "virtualMinusRealLamports": "3707627732", "virtualMinusRealTokenRaw": "279900000000000", "feeLamports": 25000 },
+        { "len": 390, "flag56": 1, "virtualMinusRealLamports": "482693422", "virtualMinusRealTokenRaw": "279900000000000", "feeLamports": 25000 },
+        { "len": 391, "flag56": 0, "virtualMinusRealLamports": "12567352270", "virtualMinusRealTokenRaw": "279900000000000", "feeLamports": 25000 },
+        { "len": 391, "flag56": 0, "virtualMinusRealLamports": "240410234", "virtualMinusRealTokenRaw": "279900000000000", "feeLamports": 25000 }
+      ],
+      "rateLimit": "A burst of getTransaction calls returned JSON-RPC error 429 before this paced sample."
+    }
+  ]
+}

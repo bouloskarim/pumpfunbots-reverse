@@ -1,0 +1,57 @@
+{
+  "id": "fixture-spot-jump-1_882x",
+  "empirical": false,
+  "provenance": "Synthetic spot path shaped like the README's +88.2% print. The README sample is not a log file and this tape is not that session.",
+  "solUsd": {
+    "usd": 150,
+    "empirical": false,
+    "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+  },
+  "events": [
+    {
+      "logMention": null,
+      "devBuySol": 0.6,
+      "side": null,
+      "user": "Creator",
+      "ts": "2026-01-01T00:00:00.000Z",
+      "slot": 1,
+      "mint": "MintJump",
+      "kind": "create",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    },
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:00:03.000Z",
+      "slot": 10,
+      "mint": "MintJump",
+      "kind": "quote",
+      "virtualSol": "56460000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "26460000000",
+      "realToken": "793100000000000",
+      "complete": false
+    },
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:02:01.000Z",
+      "slot": 40,
+      "mint": "MintJump",
+      "kind": "quote",
+      "virtualSol": "56460000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "26460000000",
+      "realToken": "793100000000000",
+      "complete": false
+    }
+  ]
+}

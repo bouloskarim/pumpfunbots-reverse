@@ -1,0 +1,57 @@
+{
+  "id": "fixture-flat-roundtrip",
+  "empirical": false,
+  "provenance": "Synthetic unchanged curve. Not observed on chain. Not a profitability result.",
+  "solUsd": {
+    "usd": 150,
+    "empirical": false,
+    "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+  },
+  "events": [
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "Creator",
+      "ts": "2026-01-01T00:00:00.000Z",
+      "slot": 1,
+      "mint": "MintFlat",
+      "kind": "create",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    },
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:00:03.000Z",
+      "slot": 2,
+      "mint": "MintFlat",
+      "kind": "quote",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    },
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:02:01.000Z",
+      "slot": 3,
+      "mint": "MintFlat",
+      "kind": "quote",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    }
+  ]
+}

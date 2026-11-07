@@ -1,0 +1,3448 @@
+{
+  "generatedAt": "2026-11-07T11:59:38.493Z",
+  "timezone": "UTC",
+  "label": "STATIC_AS_OF",
+  "live": false,
+  "empiricalBacktest": false,
+  "provenStrategy": false,
+  "selectedStrategy": "sniper",
+  "edgeClaim": false,
+  "profitClaim": false,
+  "note": "Synthetic checks are separate from the public-RPC smoke. Neither is a profitability claim. The 24-hour trial is not started.",
+  "forward": {
+    "started": false,
+    "timezone": "UTC",
+    "start": null,
+    "end": null,
+    "autoStopAt": null,
+    "heartbeat": null,
+    "heartbeatProof": null,
+    "dashboard": "not-live",
+    "blockers": [
+      {
+        "id": "no_persistent_runtime",
+        "detail": "This coding run is a Cursor cloud agent VM. Nothing started here keeps running after the run ends, and there is no supervisor to restart it. A 24-hour loop was not started, so there is no start time, end time, or heartbeat."
+      },
+      {
+        "id": "data_plane_not_durable",
+        "detail": "On 2026-11-07 the public endpoint https://api.mainnet-beta.solana.com answered getSlot and a few paced getTransaction calls, then returned JSON-RPC error 429 when transactions were requested in a burst. No Helius API key is configured. A 24-hour logsSubscribe session was not opened and is not verified."
+      },
+      {
+        "id": "no_research_dataset",
+        "detail": "The repository has no data/raw tape, no data/windows.json, and no credits ledger. The 666-wallet study cannot be replayed from checked-in observations."
+      }
+    ]
+  },
+  "baselines": [
+    {
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "source-baseline",
+      "printedSpotPnlSol": 0,
+      "netPnlSol": null,
+      "costsApplied": false
+    },
+    {
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "corrected",
+      "printedSpotPnlSol": 0,
+      "netPnlSol": -0.003082624,
+      "costsApplied": true
+    },
+    {
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "source-baseline",
+      "printedSpotPnlSol": 0.08820000000000001,
+      "netPnlSol": null,
+      "costsApplied": false
+    },
+    {
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "corrected",
+      "printedSpotPnlSol": 0.08820000000000001,
+      "netPnlSol": 0.0827954,
+      "costsApplied": true
+    }
+  ],
+  "smoke": {
+    "label": "SMOKE_NOT_A_24H_TRIAL",
+    "live": false,
+    "provenStrategy": false,
+    "profitClaim": false,
+    "edgeClaim": false,
+    "twentyFourHourTrial": {
+      "started": false,
+      "timezone": "UTC",
+      "start": null,
+      "end": null,
+      "autoStopAt": null,
+      "heartbeat": null,
+      "reason": "This process is a bounded smoke read on a cloud agent VM. The 24-hour clock is armed only by paper/host/run.mjs on a persistent host."
+    },
+    "strategy": "sniper",
+    "strategiesMixed": false,
+    "notSelected": {
+      "copy": "No wallet was chosen before this sample, and the advertised 80% list is not evidence.",
+      "graduation": "The virtual-SOL gauge is not a verified migration test, and there is no bonding-curve sell after complete."
+    },
+    "dataHealth": "ok",
+    "recording": {
+      "recordedAt": "2026-11-07T11:59:38.460Z",
+      "endpoint": "https://api.mainnet-beta.solana.com",
+      "slot": 466504267,
+      "signaturePage": 20,
+      "failedInPage": 4,
+      "transactionsFetched": 4,
+      "eventRows": 4,
+      "quoteRows": 3,
+      "createRows": 0,
+      "instructionCounts": {
+        "GetAccountDataSize": 1,
+        "InitializeImmutableOwner": 1,
+        "InitializeAccount3": 1,
+        "MultiHopSwap": 1,
+        "TransferChecked": 9,
+        "Buy": 2,
+        "GetFeesWithQuoteMint": 2,
+        "BuyExactQuoteInV3": 1,
+        "Swap2": 1,
+        "SellV2": 1,
+        "Sell": 2
+      },
+      "calls": 6,
+      "errors": [],
+      "heartbeat": [
+        {
+          "t": "2026-11-07T11:59:34.243Z",
+          "method": "getSlot",
+          "ok": true,
+          "slot": 466504267
+        },
+        {
+          "t": "2026-11-07T11:59:35.084Z",
+          "method": "getSignaturesForAddress",
+          "ok": true,
+          "rows": 20
+        },
+        {
+          "t": "2026-11-07T11:59:35.924Z",
+          "method": "getTransaction",
+          "ok": true,
+          "signature": "CYervf3wXZSxyireWkM7oVgrARsEhUtsPwwebSoz2E9QaKy9FXJfnJ6R3f4dB9R3i1UCsgpqxfzTovXtnGV9QMX",
+          "rows": 1
+        },
+        {
+          "t": "2026-11-07T11:59:36.764Z",
+          "method": "getTransaction",
+          "ok": true,
+          "signature": "4Js8sJfyRzfDQuhUpuaQQwqgvTN8hEiomDHJP23fvM4T3Gfvs576K1JDG1ZMBzvDNSRUKvLTvDH5d6hRLSsq166m",
+          "rows": 1
+        },
+        {
+          "t": "2026-11-07T11:59:37.606Z",
+          "method": "getTransaction",
+          "ok": true,
+          "signature": "2pcnL5cFHpEVKDJDTpj9yGc3qzfu8hZe8BfBKxwg5eMaWRzsmNZmwGZX9qUqTTumY9YRQL11NmBPXfbQdLBGC4Xd",
+          "rows": 1
+        },
+        {
+          "t": "2026-11-07T11:59:38.455Z",
+          "method": "getTransaction",
+          "ok": true,
+          "signature": "4VnPtazAyh7yDxcUAMRVwji943XURmbXPak2mCdBB9rVfiVscWSTLAecTeEayhnKDGix75TRxC37ssDxDzpedumn",
+          "rows": 1
+        }
+      ]
+    },
+    "evaluation": {
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "netPnlSol": null,
+      "attempts": 0,
+      "rejections": [
+        {
+          "reason": "no_verified_create_in_sample",
+          "observedRows": 3,
+          "quoteRows": 3
+        }
+      ],
+      "note": "No fill. A sniper entry needs a verified create instruction and reserves in the same sample. This sample did not have one.",
+      "provenStrategy": false,
+      "profitClaim": false,
+      "usdBudgetApplied": false
+    }
+  },
+  "runs": [
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.663584042,
+      "netPnlSol": -0.003082624,
+      "netPnlUsdAtAssumption": -0.4623936,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 1,
+      "tradeCountOpen": 0,
+      "attempts": 2,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.566216666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "sell_proceeds",
+          "sol": 0.097367376,
+          "cashSol": 6.663584042
+        }
+      ],
+      "closed": [
+        {
+          "mint": "MintFlat",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "exitTs": "2026-01-01T00:02:01.000Z",
+          "spentSol": 0.1,
+          "proceedsSol": 0.097367376,
+          "overheadSol": 0.00045,
+          "pnlSol": -0.003082624,
+          "reason": "timeout",
+          "printedSpotPnlSol": 0,
+          "holdSec": 121,
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
+        }
+      ],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintFlat spent 0.1 SOL tokens 3529253463570"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "closed MintFlat timeout net -0.003082624 SOL spotPrint 0"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.663584042,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "baseline-costs-latency0"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.663584042,
+      "netPnlSol": -0.003082624,
+      "netPnlUsdAtAssumption": -0.4623936,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintFlat",
+          "tokens": "3529253463570",
+          "entryTs": "2026-01-01T00:00:03.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "msg": "opened MintFlat spent 0.1 SOL tokens 3529253463570"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "latency-2000ms"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.661649559,
+      "netPnlSol": -0.005017107,
+      "netPnlUsdAtAssumption": -0.75256605,
+      "maxDrawdownSol": 0.005017107,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 1,
+      "tradeCountOpen": 0,
+      "attempts": 2,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 100,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.566216666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "sell_proceeds",
+          "sol": 0.095432893,
+          "cashSol": 6.661649559
+        }
+      ],
+      "closed": [
+        {
+          "mint": "MintFlat",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "exitTs": "2026-01-01T00:02:01.000Z",
+          "spentSol": 0.1,
+          "proceedsSol": 0.095432893,
+          "overheadSol": 0.00045,
+          "pnlSol": -0.005017107,
+          "reason": "timeout",
+          "printedSpotPnlSol": 0,
+          "holdSec": 121,
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
+        }
+      ],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintFlat spent 0.1 SOL tokens 3493960928934"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "closed MintFlat timeout net -0.005017107 SOL spotPrint 0"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.662613528,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.662613528,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.661649559,
+          "cashSol": 6.661649559,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "extra-slippage-100bps"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.663359042,
+      "netPnlSol": -0.003307624,
+      "netPnlUsdAtAssumption": -0.49614359999999996,
+      "maxDrawdownSol": 0.003307624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 2,
+      "failedAttempts": 1,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 2,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "reason": "sell_tx_failed",
+          "mint": "MintFlat"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.566216666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintFlat",
+          "tokens": "3529253463570",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintFlat spent 0.1 SOL tokens 3529253463570"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "reject sell_tx_failed MintFlat"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.663359042,
+          "cashSol": 6.566216666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "fail-every-2nd-attempt"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.663584042,
+      "netPnlSol": -0.003082624,
+      "netPnlUsdAtAssumption": -0.4623936,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": 5000,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintFlat",
+          "tokens": "3529253463570",
+          "entryTs": "2026-01-01T00:00:03.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "msg": "opened MintFlat spent 0.1 SOL tokens 3529253463570"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "latency-2000-stale-5000"
+    },
+    {
+      "strategy": "sniper-env-example",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666666666,
+      "netPnlSol": 0,
+      "netPnlUsdAtAssumption": 0,
+      "maxDrawdownSol": 0,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 0,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0.5,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "reason": "dev_buy_below_threshold",
+          "mint": "MintFlat"
+        }
+      ],
+      "ledger": [],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "reject dev_buy_below_threshold MintFlat"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "baseline-costs-latency0"
+    },
+    {
+      "strategy": "sniper-env-example",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666666666,
+      "netPnlSol": 0,
+      "netPnlUsdAtAssumption": 0,
+      "maxDrawdownSol": 0,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 0,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0.5,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "reason": "dev_buy_below_threshold",
+          "mint": "MintFlat"
+        }
+      ],
+      "ledger": [],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "reject dev_buy_below_threshold MintFlat"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "latency-2000ms"
+    },
+    {
+      "strategy": "sniper-env-example",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666666666,
+      "netPnlSol": 0,
+      "netPnlUsdAtAssumption": 0,
+      "maxDrawdownSol": 0,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 0,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0.5,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 100,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "reason": "dev_buy_below_threshold",
+          "mint": "MintFlat"
+        }
+      ],
+      "ledger": [],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "reject dev_buy_below_threshold MintFlat"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "extra-slippage-100bps"
+    },
+    {
+      "strategy": "sniper-env-example",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666666666,
+      "netPnlSol": 0,
+      "netPnlUsdAtAssumption": 0,
+      "maxDrawdownSol": 0,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 0,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0.5,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 2,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "reason": "dev_buy_below_threshold",
+          "mint": "MintFlat"
+        }
+      ],
+      "ledger": [],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "reject dev_buy_below_threshold MintFlat"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "fail-every-2nd-attempt"
+    },
+    {
+      "strategy": "sniper-env-example",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666666666,
+      "netPnlSol": 0,
+      "netPnlUsdAtAssumption": 0,
+      "maxDrawdownSol": 0,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 0,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0.5,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": 5000,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "reason": "dev_buy_below_threshold",
+          "mint": "MintFlat"
+        }
+      ],
+      "ledger": [],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "reject dev_buy_below_threshold MintFlat"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "latency-2000-stale-5000"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.749462066,
+      "netPnlSol": 0.0827954,
+      "netPnlUsdAtAssumption": 12.419310000000001,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0.08820000000000001,
+      "tradeCountClosed": 1,
+      "tradeCountOpen": 0,
+      "attempts": 2,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.566216666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "sell_proceeds",
+          "sol": 0.1832454,
+          "cashSol": 6.749462066
+        }
+      ],
+      "closed": [
+        {
+          "mint": "MintJump",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "exitTs": "2026-01-01T00:02:01.000Z",
+          "spentSol": 0.1,
+          "proceedsSol": 0.1832454,
+          "overheadSol": 0.00045,
+          "pnlSol": 0.0827954,
+          "reason": "timeout",
+          "printedSpotPnlSol": 0.08820000000000001,
+          "holdSec": 121,
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
+        }
+      ],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintJump spent 0.1 SOL tokens 3529253463570"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "closed MintJump timeout net 0.0827954 SOL spotPrint 0.08820000000000001"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.749462066,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.749462066,
+          "cashSol": 6.749462066,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "baseline-costs-latency0"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 1,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "reason": "buy_slippage",
+          "mint": "MintJump"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        }
+      ],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "msg": "reject buy_slippage MintJump"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "latency-2000ms"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.745821371,
+      "netPnlSol": 0.079154705,
+      "netPnlUsdAtAssumption": 11.87320575,
+      "maxDrawdownSol": 0.004053138,
+      "printedSpotPnlSolOnCloses": 0.08820000000000001,
+      "tradeCountClosed": 1,
+      "tradeCountOpen": 0,
+      "attempts": 2,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 100,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.566216666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "sell_proceeds",
+          "sol": 0.179604705,
+          "cashSol": 6.745821371
+        }
+      ],
+      "closed": [
+        {
+          "mint": "MintJump",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "exitTs": "2026-01-01T00:02:01.000Z",
+          "spentSol": 0.1,
+          "proceedsSol": 0.179604705,
+          "overheadSol": 0.00045,
+          "pnlSol": 0.079154705,
+          "reason": "timeout",
+          "printedSpotPnlSol": 0.08820000000000001,
+          "holdSec": 121,
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
+        }
+      ],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintJump spent 0.1 SOL tokens 3493960928934"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "closed MintJump timeout net 0.079154705 SOL spotPrint 0.08820000000000001"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.662613528,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.74763556,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.745821371,
+          "cashSol": 6.745821371,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "extra-slippage-100bps"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.749237066,
+      "netPnlSol": 0.0825704,
+      "netPnlUsdAtAssumption": 12.38556,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 2,
+      "failedAttempts": 1,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 2,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "reason": "sell_tx_failed",
+          "mint": "MintJump"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.566216666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintJump",
+          "tokens": "3529253463570",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.1830204
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintJump spent 0.1 SOL tokens 3529253463570"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "msg": "reject sell_tx_failed MintJump"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.749462066,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.749237066,
+          "cashSol": 6.566216666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "fail-every-2nd-attempt"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 1,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": 5000,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "reason": "buy_slippage",
+          "mint": "MintJump"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        }
+      ],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "msg": "reject buy_slippage MintJump"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:03.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:02:01.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "latency-2000-stale-5000"
+    },
+    {
+      "strategy": "graduation",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.566441666,
+      "netPnlSol": -0.100225,
+      "netPnlUsdAtAssumption": -15.03375,
+      "maxDrawdownSol": 0.100225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 1.5,
+        "stopLoss": 0.7,
+        "timeoutSec": 300,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 30,
+        "sellPct": 100,
+        "minFillPct": 92,
+        "virtualSolLamportsAt100Pct": "85000000000",
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "reason": "migration_or_unknown_curve_no_exit",
+          "mint": "MintGrad"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintGrad",
+          "tokens": "494388194609",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": true,
+          "assumedExit": false,
+          "valuation": "conservative_zero_no_supported_venue",
+          "markSol": 0
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "graduation signal fill 94.12%"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintGrad spent 0.1 SOL tokens 494388194609"
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "msg": "reject migration_or_unknown_curve_no_exit MintGrad"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.66398469,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "equitySol": 6.566441666,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-graduation-virtual-fill",
+      "variant": "baseline-costs-latency0"
+    },
+    {
+      "strategy": "graduation",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 1.5,
+        "stopLoss": 0.7,
+        "timeoutSec": 300,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 30,
+        "sellPct": 100,
+        "minFillPct": 92,
+        "virtualSolLamportsAt100Pct": "85000000000",
+        "entryLatencyMs": 2000,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "reason": "migrated_before_fill",
+          "mint": "MintGrad"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        }
+      ],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "graduation signal fill 94.12%"
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "msg": "reject migrated_before_fill MintGrad"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-graduation-virtual-fill",
+      "variant": "latency-2000ms"
+    },
+    {
+      "strategy": "graduation",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.566441666,
+      "netPnlSol": -0.100225,
+      "netPnlUsdAtAssumption": -15.03375,
+      "maxDrawdownSol": 0.100225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 1.5,
+        "stopLoss": 0.7,
+        "timeoutSec": 300,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 30,
+        "sellPct": 100,
+        "minFillPct": 92,
+        "virtualSolLamportsAt100Pct": "85000000000",
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 100,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "reason": "migration_or_unknown_curve_no_exit",
+          "mint": "MintGrad"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintGrad",
+          "tokens": "489444312662",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": true,
+          "assumedExit": false,
+          "valuation": "conservative_zero_no_supported_venue",
+          "markSol": 0
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "graduation signal fill 94.12%"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintGrad spent 0.1 SOL tokens 489444312662"
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "msg": "reject migration_or_unknown_curve_no_exit MintGrad"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.663008205,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "equitySol": 6.566441666,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-graduation-virtual-fill",
+      "variant": "extra-slippage-100bps"
+    },
+    {
+      "strategy": "graduation",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.566441666,
+      "netPnlSol": -0.100225,
+      "netPnlUsdAtAssumption": -15.03375,
+      "maxDrawdownSol": 0.100225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 1.5,
+        "stopLoss": 0.7,
+        "timeoutSec": 300,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 30,
+        "sellPct": 100,
+        "minFillPct": 92,
+        "virtualSolLamportsAt100Pct": "85000000000",
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 2,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "reason": "migration_or_unknown_curve_no_exit",
+          "mint": "MintGrad"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintGrad",
+          "tokens": "494388194609",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": true,
+          "assumedExit": false,
+          "valuation": "conservative_zero_no_supported_venue",
+          "markSol": 0
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "graduation signal fill 94.12%"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintGrad spent 0.1 SOL tokens 494388194609"
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "msg": "reject migration_or_unknown_curve_no_exit MintGrad"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.66398469,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "equitySol": 6.566441666,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-graduation-virtual-fill",
+      "variant": "fail-every-2nd-attempt"
+    },
+    {
+      "strategy": "graduation",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 1,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 1.5,
+        "stopLoss": 0.7,
+        "timeoutSec": 300,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 30,
+        "sellPct": 100,
+        "minFillPct": 92,
+        "virtualSolLamportsAt100Pct": "85000000000",
+        "entryLatencyMs": 2000,
+        "staleMs": 5000,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "reason": "stale_quote",
+          "mint": "MintGrad"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        }
+      ],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "graduation signal fill 94.12%"
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "msg": "reject stale_quote MintGrad"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:10.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-graduation-virtual-fill",
+      "variant": "latency-2000-stale-5000"
+    },
+    {
+      "strategy": "copy",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.708140727,
+      "netPnlSol": 0.041474061,
+      "netPnlUsdAtAssumption": 6.22110915,
+      "maxDrawdownSol": 0.001606184,
+      "printedSpotPnlSolOnCloses": 0.04410000000000001,
+      "tradeCountClosed": 1,
+      "tradeCountOpen": 0,
+      "attempts": 2,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.05,
+        "maxPositions": 5,
+        "minDevBuySol": 0,
+        "cooldownSec": 0,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "buy_notional",
+          "sol": -0.05,
+          "cashSol": 6.616441666
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.616216666
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "kind": "sell_proceeds",
+          "sol": 0.091924061,
+          "cashSol": 6.708140727
+        }
+      ],
+      "closed": [
+        {
+          "mint": "MintCopy",
+          "entryTs": "2026-01-01T00:00:01.000Z",
+          "exitTs": "2026-01-01T00:00:04.000Z",
+          "spentSol": 0.05,
+          "proceedsSol": 0.091924061,
+          "overheadSol": 0.00045,
+          "pnlSol": 0.041474061,
+          "reason": "copy-sell",
+          "printedSpotPnlSol": 0.04410000000000001,
+          "holdSec": 3,
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
+        }
+      ],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "opened MintCopy spent 0.05 SOL tokens 1767533569610"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "closed MintCopy copy-sell net 0.041474061 SOL spotPrint 0.04410000000000001"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "equitySol": 6.665060482,
+          "cashSol": 6.616441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "equitySol": 6.708140727,
+          "cashSol": 6.708140727,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-copy-mechanism",
+      "variant": "baseline-costs-latency0"
+    },
+    {
+      "strategy": "copy",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 1,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.05,
+        "maxPositions": 5,
+        "minDevBuySol": 0,
+        "cooldownSec": 0,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "reason": "buy_slippage",
+          "mint": "MintCopy"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        }
+      ],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "reject buy_slippage MintCopy"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-copy-mechanism",
+      "variant": "latency-2000ms"
+    },
+    {
+      "strategy": "copy",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.706312919,
+      "netPnlSol": 0.039646253,
+      "netPnlUsdAtAssumption": 5.94693795,
+      "maxDrawdownSol": 0.002093828,
+      "printedSpotPnlSolOnCloses": 0.04410000000000001,
+      "tradeCountClosed": 1,
+      "tradeCountOpen": 0,
+      "attempts": 2,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.05,
+        "maxPositions": 5,
+        "minDevBuySol": 0,
+        "cooldownSec": 0,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 100,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "buy_notional",
+          "sol": -0.05,
+          "cashSol": 6.616441666
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.616216666
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "kind": "sell_proceeds",
+          "sol": 0.090096253,
+          "cashSol": 6.706312919
+        }
+      ],
+      "closed": [
+        {
+          "mint": "MintCopy",
+          "entryTs": "2026-01-01T00:00:01.000Z",
+          "exitTs": "2026-01-01T00:00:04.000Z",
+          "spentSol": 0.05,
+          "proceedsSol": 0.090096253,
+          "overheadSol": 0.00045,
+          "pnlSol": 0.039646253,
+          "reason": "copy-sell",
+          "printedSpotPnlSol": 0.04410000000000001,
+          "holdSec": 3,
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
+        }
+      ],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "opened MintCopy spent 0.05 SOL tokens 1749858233913"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "closed MintCopy copy-sell net 0.039646253 SOL spotPrint 0.04410000000000001"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "equitySol": 6.664572838,
+          "cashSol": 6.616441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "equitySol": 6.706312919,
+          "cashSol": 6.706312919,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-copy-mechanism",
+      "variant": "extra-slippage-100bps"
+    },
+    {
+      "strategy": "copy",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.707915727,
+      "netPnlSol": 0.041249061,
+      "netPnlUsdAtAssumption": 6.18735915,
+      "maxDrawdownSol": 0.001606184,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 2,
+      "failedAttempts": 1,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.05,
+        "maxPositions": 5,
+        "minDevBuySol": 0,
+        "cooldownSec": 0,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 2,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "reason": "sell_tx_failed",
+          "mint": "MintCopy"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "buy_notional",
+          "sol": -0.05,
+          "cashSol": 6.616441666
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.616216666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintCopy",
+          "tokens": "1767533569610",
+          "entryTs": "2026-01-01T00:00:01.000Z",
+          "spentSol": 0.05,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.091699061
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "opened MintCopy spent 0.05 SOL tokens 1767533569610"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "sell: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "reject sell_tx_failed MintCopy"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "equitySol": 6.665060482,
+          "cashSol": 6.616441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "equitySol": 6.707915727,
+          "cashSol": 6.616216666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-copy-mechanism",
+      "variant": "fail-every-2nd-attempt"
+    },
+    {
+      "strategy": "copy",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 1,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.05,
+        "maxPositions": 5,
+        "minDevBuySol": 0,
+        "cooldownSec": 0,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": 5000,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "reason": "buy_slippage",
+          "mint": "MintCopy"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        }
+      ],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "msg": "reject buy_slippage MintCopy"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666666666,
+          "cashSol": 6.666666666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:01.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:04.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-copy-mechanism",
+      "variant": "latency-2000-stale-5000"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.663584042,
+      "netPnlSol": -0.003082624,
+      "netPnlUsdAtAssumption": -0.4623936,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintGap",
+          "tokens": "3529253463570",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintGap spent 0.1 SOL tokens 3529253463570"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-stale-gap",
+      "variant": "baseline-costs-latency0"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.663584042,
+      "netPnlSol": -0.003082624,
+      "netPnlUsdAtAssumption": -0.4623936,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintGap",
+          "tokens": "3529253463570",
+          "entryTs": "2026-01-01T00:00:30.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "msg": "opened MintGap spent 0.1 SOL tokens 3529253463570"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-stale-gap",
+      "variant": "latency-2000ms"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.662613528,
+      "netPnlSol": -0.004053138,
+      "netPnlUsdAtAssumption": -0.6079707000000001,
+      "maxDrawdownSol": 0.004053138,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 100,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintGap",
+          "tokens": "3493960928934",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.096171862
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintGap spent 0.1 SOL tokens 3493960928934"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.662613528,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "equitySol": 6.662613528,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-stale-gap",
+      "variant": "extra-slippage-100bps"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.663584042,
+      "netPnlSol": -0.003082624,
+      "netPnlUsdAtAssumption": -0.4623936,
+      "maxDrawdownSol": 0.003082624,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 1,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 0,
+      "slippageSkips": 0,
+      "rejectionCount": 0,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 0,
+        "staleMs": null,
+        "extraSlippageBps": 0,
+        "failureEvery": 2,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "buy_notional",
+          "sol": -0.1,
+          "cashSol": 6.566441666
+        }
+      ],
+      "closed": [],
+      "open": [
+        {
+          "mint": "MintGap",
+          "tokens": "3529253463570",
+          "entryTs": "2026-01-01T00:00:00.000Z",
+          "spentSol": 0.1,
+          "stuck": false,
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
+        }
+      ],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "opened MintGap spent 0.1 SOL tokens 3529253463570"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "equitySol": 6.663584042,
+          "cashSol": 6.566441666,
+          "open": 1
+        }
+      ],
+      "scenarioId": "fixture-stale-gap",
+      "variant": "fail-every-2nd-attempt"
+    },
+    {
+      "strategy": "sniper",
+      "evaluationVariant": "corrected",
+      "attribution": "corrected",
+      "empirical": false,
+      "empiricalBacktest": false,
+      "provenStrategy": false,
+      "edgeClaim": false,
+      "profitClaim": false,
+      "interpretation": "synthetic_mechanism_check",
+      "solUsdAssumption": {
+        "usd": 150,
+        "empirical": false,
+        "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+      },
+      "usdBudgetApplied": true,
+      "equityUsdStart": 1000,
+      "startingSol": 6.666666666,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
+      "printedSpotPnlSolOnCloses": 0,
+      "tradeCountClosed": 0,
+      "tradeCountOpen": 0,
+      "attempts": 1,
+      "failedAttempts": 0,
+      "staleSkips": 1,
+      "slippageSkips": 0,
+      "rejectionCount": 1,
+      "overheadSolPerAttempt": 0.000225,
+      "params": {
+        "buySol": 0.1,
+        "takeProfit": 2,
+        "stopLoss": 0.5,
+        "timeoutSec": 120,
+        "maxPositions": 3,
+        "minDevBuySol": 0,
+        "cooldownSec": 10,
+        "sellPct": 100,
+        "entryLatencyMs": 2000,
+        "staleMs": 5000,
+        "extraSlippageBps": 0,
+        "failureEvery": 0,
+        "slippageBps": 500,
+        "exitPolicy": "bonding-curve-only-stuck-marks-zero",
+        "overheadPaidOnSubmit": true
+      },
+      "rejections": [
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "reason": "stale_quote",
+          "mint": "MintGap"
+        }
+      ],
+      "ledger": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "kind": "overhead",
+          "sol": -0.000225,
+          "cashSol": 6.666441666
+        }
+      ],
+      "closed": [],
+      "open": [],
+      "logs": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "msg": "buy: paid overhead 0.000225 SOL"
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "msg": "reject stale_quote MintGap"
+        }
+      ],
+      "equityCurve": [
+        {
+          "ts": "2026-01-01T00:00:00.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        },
+        {
+          "ts": "2026-01-01T00:00:30.000Z",
+          "equitySol": 6.666441666,
+          "cashSol": 6.666441666,
+          "open": 0
+        }
+      ],
+      "scenarioId": "fixture-stale-gap",
+      "variant": "latency-2000-stale-5000"
+    }
+  ]
+}

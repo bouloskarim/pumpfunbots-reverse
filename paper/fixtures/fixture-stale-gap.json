@@ -1,0 +1,42 @@
+{
+  "id": "fixture-stale-gap",
+  "empirical": false,
+  "provenance": "Synthetic create followed by a quote 30s later. Not observed.",
+  "solUsd": {
+    "usd": 150,
+    "empirical": false,
+    "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+  },
+  "events": [
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "Creator",
+      "ts": "2026-01-01T00:00:00.000Z",
+      "slot": 1,
+      "mint": "MintGap",
+      "kind": "create",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    },
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:00:30.000Z",
+      "slot": 9,
+      "mint": "MintGap",
+      "kind": "quote",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    }
+  ]
+}
