@@ -1,0 +1,42 @@
+{
+  "id": "fixture-graduation-virtual-fill",
+  "empirical": false,
+  "provenance": "Synthetic reserves inside the bot's 92-100 virtual-SOL window, then a complete curve. Not an observed graduation.",
+  "solUsd": {
+    "usd": 150,
+    "empirical": false,
+    "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+  },
+  "events": [
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:00:00.000Z",
+      "slot": 1,
+      "mint": "MintGrad",
+      "kind": "quote",
+      "virtualSol": "80000000000",
+      "virtualToken": "400000000000000",
+      "realSol": "50000000000",
+      "realToken": "120100000000000",
+      "complete": false
+    },
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:00:10.000Z",
+      "slot": 5,
+      "mint": "MintGrad",
+      "kind": "quote",
+      "virtualSol": "115000000000",
+      "virtualToken": "280000000000000",
+      "realSol": "85000000000",
+      "realToken": "100000000000",
+      "complete": true
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "fixture-copy-mechanism",
+  "empirical": false,
+  "provenance": "Synthetic target prints. Targets were named before the first event. Not a wallet study.",
+  "solUsd": {
+    "usd": 150,
+    "empirical": false,
+    "note": "Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print."
+  },
+  "copyTargets": [
+    "WalletA"
+  ],
+  "copyTargetsSelectedAt": "2025-12-31T23:00:00.000Z",
+  "events": [
+    {
+      "logMention": null,
+      "devBuySol": 0,
+      "side": null,
+      "user": "nobody",
+      "ts": "2026-01-01T00:00:00.000Z",
+      "slot": 1,
+      "mint": "MintCopy",
+      "kind": "quote",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    },
+    {
+      "logMention": "WalletA",
+      "devBuySol": 0,
+      "side": "buy",
+      "user": "WalletA",
+      "ts": "2026-01-01T00:00:01.000Z",
+      "slot": 2,
+      "mint": "MintCopy",
+      "kind": "trade",
+      "virtualSol": "30000000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "0",
+      "realToken": "793100000000000",
+      "complete": false
+    },
+    {
+      "logMention": "WalletA",
+      "devBuySol": 0,
+      "side": "sell",
+      "user": "WalletA",
+      "ts": "2026-01-01T00:00:04.000Z",
+      "slot": 8,
+      "mint": "MintCopy",
+      "kind": "trade",
+      "virtualSol": "56460000000",
+      "virtualToken": "1073000000000000",
+      "realSol": "26460000000",
+      "realToken": "793100000000000",
+      "complete": false
+    }
+  ]
+}
