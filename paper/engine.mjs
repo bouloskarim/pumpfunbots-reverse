@@ -1,5 +1,6 @@
-// Paper replay. No RPC, websocket, keypair, signing, or transaction send.
-// One strategy per call. Books are not combined.
+// Corrected paper replay. One strategy per call. Books are not combined.
+// This module cannot sign or broadcast: it does not import a wallet, a
+// transaction builder, or an RPC sender.
 
 import { SOURCE_DEFAULTS } from "./defaults.mjs";
 import { calcBuyTokens, calcSellSol, fillPctOfVirtual85, getPrice } from "./curve.mjs";
@@ -13,14 +14,34 @@ function ms(iso) {
   return t;
 }
 
-function reserves(event) {
-  return {
-    virtualSolReserves: BigInt(event.virtualSol),
-    virtualTokenReserves: BigInt(event.virtualToken),
-    realSolReserves: BigInt(event.realSol ?? 0),
-    realTokenReserves: BigInt(event.realToken ?? 0),
-    complete: Boolean(event.complete),
-  };
+export function parseQuote(event) {
+  if (!event?.ts || !event?.mint) return { error: "missing_timestamp_or_mint" };
+  if (event.virtualSol == null || event.virtualSol === "" || event.virtualToken == null || event.virtualToken === "") {
+    return { error: "missing_reserves" };
+  }
+  try {
+    const virtualSolReserves = BigInt(event.virtualSol);
+    const virtualTokenReserves = BigInt(event.virtualToken);
+    if (virtualSolReserves <= 0n || virtualTokenReserves <= 0n) return { error: "non_positive_reserves" };
+    let realSolReserves = null;
+    let realTokenReserves = null;
+    if (event.realSol != null && event.realSol !== "") realSolReserves = BigInt(event.realSol);
+    if (event.realToken != null && event.realToken !== "") realTokenReserves = BigInt(event.realToken);
+    return {
+      quote: {
+        virtualSolReserves,
+        virtualTokenReserves,
+        realSolReserves,
+        realTokenReserves,
+        // Only an explicit flag. Missing does not mean "still on the curve" for exits
+        // when the caller asked for strict quotes; synthetic fixtures set it.
+        complete: event.complete === true,
+        completeKnown: event.complete === true || event.complete === false,
+      },
+    };
+  } catch {
+    return { error: "malformed_reserves" };
+  }
 }
 
 function solLamports(sol) {
@@ -53,6 +74,9 @@ export function assertCopySelection(scenario) {
   if (selected > first) {
     throw new Error("copy target list is timestamped after the tape starts (lookahead)");
   }
+  if (!scenario.copyTargetEvidence) {
+    // Corrected evaluation refuses an unexplained list. Source-mention tests pass evidence: "synthetic-fixture".
+  }
 }
 
 function paramsFor(strategy, overrides) {
@@ -70,44 +94,84 @@ function paramsFor(strategy, overrides) {
   };
 }
 
+function assertTapeClass(scenario, options, strategy) {
+  const events = scenario.events || [];
+  if (scenario.empirical === true) {
+    if (options.allowObserved !== true) {
+      throw new Error("empirical tapes are refused until a checked-in observed dataset is supplied");
+    }
+    if (strategy !== "sniper") {
+      throw new Error("observed evaluation runs one strategy: sniper");
+    }
+    for (const event of events) {
+      if (event.synthetic === true) throw new Error("synthetic event in observed tape");
+      if (String(event.provenance || "").toLowerCase().includes("synthetic")) {
+        throw new Error("synthetic provenance in observed tape");
+      }
+      if (event.source !== "public-rpc" || !event.signature) {
+        throw new Error("observed event missing public-rpc signature");
+      }
+    }
+  } else if (events.some((event) => event.source === "public-rpc")) {
+    throw new Error("observed event mixed into a synthetic scenario");
+  }
+}
+
 /**
- * Replay one strategy over a chronological quote/signal tape.
+ * Corrected evaluation.
  *
- * Primary fill model (the bot's dry-run does not do this):
- * - buy and sell execute against the quote with the repo's curve formula,
- *   which already removes a flat 1% on each side
- * - each attempt pays the repo's priority fee, tip, and a 5000-lamport signature fee
- * - entry uses the quote at signal time plus entryLatencyMs
- * - a migrated/complete curve cannot be sold (live path). The bot's dry-run
- *   spot print is still recorded as printedSpotPnlSol
- * - optional deterministic failureEvery: attempt N fails when N % k === 0
+ * Assumptions, all explicit:
+ * - Protocol fee is the repo's flat 1% inside calcBuyTokens / calcSellSol.
+ * - Price impact is that same constant-product quote. The historical tape is not
+ *   rewritten with our size.
+ * - Every submitted attempt pays priority fee + tip + signature fee from
+ *   lib/config.mjs (225_000 lamports) even when it fails.
+ * - Entry is sent at the signal and fills on the first later quote for that
+ *   mint at or after signal+entryLatencyMs. No quote, a stale quote, or a
+ *   curve already marked complete grants no tokens.
+ * - Slippage uses SLIPPAGE_BPS (500) against the signal quote. A worse fill
+ *   quote rejects the buy. Extra slippage bps worsens the fill further.
+ * - A sell that fails slippage, fails the inclusion model, or arrives after
+ *   complete does not close. There is no PumpSwap or other venue.
+ * - Stuck positions are valued at 0. That is a conservative valuation, not a sale.
+ * - Copy, corrected: event.user must be a target chosen before the tape.
+ *   A log mention alone is attribution_mismatch.
+ * - Copy is not used for observed tapes.
  */
 export function runScenario(scenario, options = {}) {
   const strategy = options.strategy;
   if (!["sniper", "copy", "graduation"].includes(strategy)) {
     throw new Error(`unknown strategy ${strategy}`);
   }
-  if (scenario.empirical === true) {
-    throw new Error("empirical tapes are refused until a checked-in observed dataset is supplied");
-  }
   const events = scenario.events || [];
   if (!events.length) throw new Error("scenario has no events");
   assertChronological(events);
-  if (strategy === "copy") assertCopySelection(scenario);
+  assertTapeClass(scenario, options, strategy);
+  if (strategy === "copy") {
+    assertCopySelection(scenario);
+    if (options.attribution !== "source-mention" && !scenario.copyTargetEvidence) {
+      throw new Error("corrected copy requires copyTargetEvidence recorded before the tape");
+    }
+  }
 
   const p = paramsFor(strategy, options);
   const targets = new Set(scenario.copyTargets || []);
+  const attribution = options.attribution || "corrected";
   const latencyMs = options.entryLatencyMs ?? 0;
   const staleMs = options.staleMs ?? null;
   const extraSlippageBps = options.extraSlippageBps ?? 0;
   const failureEvery = options.failureEvery ?? 0;
   const slippageBps = options.slippageBps ?? SOURCE_DEFAULTS.slippageBps;
+  const solDenominated = options.solDenominated === true;
   const solUsd = scenario.solUsd;
-  if (!solUsd || solUsd.empirical !== false || !(solUsd.usd > 0)) {
+  const usdKnown = !solDenominated && solUsd && solUsd.empirical === false && solUsd.usd > 0;
+  if (!solDenominated && !usdKnown) {
     throw new Error("solUsd must be an explicit non-empirical positive assumption, or omitted by not claiming USD");
   }
   const equityUsd = options.equityUsd ?? 1000;
-  let cash = BigInt(Math.floor((equityUsd / solUsd.usd) * 1e9));
+  let cash = solDenominated
+    ? (options.startingCashLamports ?? 2_000_000_000n)
+    : BigInt(Math.floor((equityUsd / solUsd.usd) * 1e9));
   const startCash = cash;
 
   const quotes = new Map();
@@ -115,6 +179,8 @@ export function runScenario(scenario, options = {}) {
   const pending = [];
   const closed = [];
   const logs = [];
+  const ledger = [];
+  const rejections = [];
   const equityCurve = [];
   let lastBuyMs = -1e15;
   let attempts = 0;
@@ -128,13 +194,20 @@ export function runScenario(scenario, options = {}) {
     logs.push({ ts, msg });
   }
 
-  function spendOverhead(reason, ts) {
-    cash -= OVERHEAD;
-    log(ts, `${reason}: paid overhead ${lamportsToSol(OVERHEAD)} SOL`);
+  function reject(ts, reason, extra = {}) {
+    rejections.push({ ts: ts ?? null, reason, ...extra });
+    log(ts, `reject ${reason}${extra.mint ? " " + extra.mint : ""}`);
   }
 
-  function land() {
+  function move(ts, kind, lamports) {
+    cash += lamports;
+    ledger.push({ ts, kind, sol: lamportsToSol(lamports), cashSol: lamportsToSol(cash) });
+  }
+
+  function submit(ts, label) {
     attempts += 1;
+    move(ts, "overhead", -OVERHEAD);
+    log(ts, `${label}: paid overhead ${lamportsToSol(OVERHEAD)} SOL`);
     if (failureEvery > 0 && attempts % failureEvery === 0) {
       failedAttempts += 1;
       return false;
@@ -149,7 +222,7 @@ export function runScenario(scenario, options = {}) {
   function markPosition(pos) {
     if (pos.stuck) return 0n;
     const q = quotes.get(pos.mint);
-    if (!q || q.complete) return 0n;
+    if (!q || q.complete || !q.completeKnown) return 0n;
     const out = calcSellSol(q, pos.tokens);
     return out > OVERHEAD ? out - OVERHEAD : 0n;
   }
@@ -172,45 +245,43 @@ export function runScenario(scenario, options = {}) {
     });
   }
 
-  function tryFill(event) {
+  function dropPending(order, ts, reason) {
+    const idx = pending.indexOf(order);
+    if (idx >= 0) pending.splice(idx, 1);
+    reject(ts, reason, { mint: order.mint });
+  }
+
+  function tryFill(event, state) {
     const now = ms(event.ts);
-    for (let i = pending.length - 1; i >= 0; i--) {
-      const order = pending[i];
+    for (const order of [...pending]) {
       if (order.mint !== event.mint) continue;
       if (now < order.readyMs) continue;
       if (staleMs != null && now > order.expireMs) {
         staleSkips += 1;
-        log(event.ts, `stale quote, skipped buy ${order.mint}`);
-        pending.splice(i, 1);
+        dropPending(order, event.ts, "stale_quote");
         continue;
       }
-      const state = reserves(event);
+      if (!order.submitted) {
+        dropPending(order, event.ts, "buy_not_submitted");
+        continue;
+      }
       if (state.complete) {
-        log(event.ts, `curve complete at fill, skipped buy ${order.mint}`);
-        pending.splice(i, 1);
+        dropPending(order, event.ts, "migrated_before_fill");
         continue;
       }
       const tokensRaw = calcBuyTokens(state, p.buySol);
       const tokens = applyExtra(tokensRaw, extraSlippageBps);
-      const minFromSignal = order.minTokens;
-      if (tokens < minFromSignal) {
+      if (tokens < order.minTokens) {
         slippageSkips += 1;
-        spendOverhead("buy slippage reject", event.ts);
-        pending.splice(i, 1);
+        dropPending(order, event.ts, "buy_slippage");
         continue;
       }
       const cost = solLamports(p.buySol);
-      if (cash < cost + OVERHEAD) {
-        log(event.ts, `insufficient cash, skipped buy ${order.mint}`);
-        pending.splice(i, 1);
+      if (cash < cost) {
+        dropPending(order, event.ts, "insufficient_cash");
         continue;
       }
-      if (!land()) {
-        spendOverhead("buy failed", event.ts);
-        pending.splice(i, 1);
-        continue;
-      }
-      cash -= cost + OVERHEAD;
+      move(event.ts, "buy_notional", -cost);
       const entrySpot = getPrice(state);
       positions.set(order.mint, {
         mint: order.mint,
@@ -218,31 +289,38 @@ export function runScenario(scenario, options = {}) {
         entrySpot,
         entryTs: event.ts,
         entryMs: now,
+        signalTs: order.signalTs,
         spentLamports: cost,
         entryOverhead: OVERHEAD,
         stuck: false,
       });
-      pending.splice(i, 1);
+      pending.splice(pending.indexOf(order), 1);
       log(event.ts, `opened ${order.mint} spent ${p.buySol} SOL tokens ${tokens}`);
     }
   }
 
   function closeLive(pos, event, state, trigger) {
+    if (state.complete || !state.completeKnown) {
+      pos.stuck = true;
+      reject(event.ts, "sell_unsupported_after_migration_or_unknown_curve", { mint: pos.mint });
+      return;
+    }
+    const landed = submit(event.ts, "sell");
     const tokens = (pos.tokens * BigInt(p.sellPct)) / 100n;
     const expected = calcSellSol(state, tokens);
     const minSol = (expected * BigInt(10_000 - slippageBps)) / 10_000n;
     const proceeds = applyExtra(expected, extraSlippageBps);
     const printedSpotPnlSol = lamportsToSol(pos.spentLamports) * (trigger.ratio - 1);
+    if (!landed) {
+      reject(event.ts, "sell_tx_failed", { mint: pos.mint });
+      return;
+    }
     if (proceeds < minSol) {
       slippageSkips += 1;
-      spendOverhead("sell slippage reject", event.ts);
+      reject(event.ts, "sell_slippage", { mint: pos.mint });
       return;
     }
-    if (!land()) {
-      spendOverhead("sell failed", event.ts);
-      return;
-    }
-    cash += proceeds - OVERHEAD;
+    move(event.ts, "sell_proceeds", proceeds);
     positions.delete(pos.mint);
     const pnl = proceeds - pos.spentLamports - pos.entryOverhead - OVERHEAD;
     closed.push({
@@ -256,20 +334,20 @@ export function runScenario(scenario, options = {}) {
       reason: trigger.reason,
       printedSpotPnlSol,
       holdSec: (ms(event.ts) - pos.entryMs) / 1000,
-      exitPolicy: "live-curve",
+      exitPolicy: "bonding-curve-only",
+      assumedExit: false,
     });
-    log(event.ts, `closed ${pos.mint} ${trigger.reason} net ${lamportsToSol(pnl)} SOL printedSpot ${printedSpotPnlSol}`);
+    log(event.ts, `closed ${pos.mint} ${trigger.reason} net ${lamportsToSol(pnl)} SOL spotPrint ${printedSpotPnlSol}`);
   }
 
-  function checkExits(event) {
+  function checkExits(event, state) {
     const now = ms(event.ts);
-    const state = reserves(event);
     for (const pos of [...positions.values()]) {
-      if (pos.mint !== event.mint) continue;
+      if (pos.mint !== event.mint || pos.stuck) continue;
       if (strategy === "copy") continue;
-      if (state.complete) {
+      if (state.complete || !state.completeKnown) {
         pos.stuck = true;
-        log(event.ts, `migration/complete, cannot sell ${pos.mint} on the bonding curve`);
+        reject(event.ts, "migration_or_unknown_curve_no_exit", { mint: pos.mint });
         continue;
       }
       const ratio = getPrice(state) / pos.entrySpot;
@@ -283,16 +361,37 @@ export function runScenario(scenario, options = {}) {
     }
   }
 
-  function signal(event) {
+  function queue(event, state, now) {
+    const expected = calcBuyTokens(state, p.buySol);
+    const minTokens = (expected * BigInt(10_000 - slippageBps)) / 10_000n;
+    const submitted = submit(event.ts, "buy");
+    if (!submitted) {
+      reject(event.ts, "buy_tx_failed", { mint: event.mint });
+      return;
+    }
+    pending.push({
+      mint: event.mint,
+      readyMs: now + latencyMs,
+      expireMs: now + latencyMs + (staleMs ?? 0),
+      minTokens,
+      submitted: true,
+      signalTs: event.ts,
+    });
+  }
+
+  function signal(event, state) {
     const now = ms(event.ts);
-    const state = reserves(event);
     if (strategy === "sniper") {
       if (event.kind !== "create") return;
       if (positions.has(event.mint) || pending.some((o) => o.mint === event.mint)) return;
       if (reservedCount() >= p.maxPositions) return;
       if (now - lastBuyMs < p.cooldownSec * 1000) return;
       if (p.minDevBuySol > 0 && !(Number(event.devBuySol) >= p.minDevBuySol)) {
-        log(event.ts, `skip create, dev buy ${event.devBuySol ?? 0} < ${p.minDevBuySol}`);
+        reject(event.ts, "dev_buy_below_threshold", { mint: event.mint });
+        return;
+      }
+      if (scenario.empirical === true && event.createInstructionVerified !== true) {
+        reject(event.ts, "create_instruction_not_verified", { mint: event.mint });
         return;
       }
       queue(event, state, now);
@@ -308,70 +407,77 @@ export function runScenario(scenario, options = {}) {
       lastBuyMs = now;
       log(event.ts, `graduation signal fill ${fill.toFixed(2)}%`);
     } else if (strategy === "copy") {
-      const mention = event.logMention || event.user;
-      if (!targets.has(mention)) return;
+      const userOk = Boolean(event.user) && targets.has(event.user);
+      const mentionOk = Boolean(event.logMention) && targets.has(event.logMention);
+      if (attribution === "source-mention") {
+        if (!mentionOk && !userOk) return;
+      } else if (mentionOk && !userOk) {
+        reject(event.ts, "attribution_mismatch", { mint: event.mint, user: event.user, logMention: event.logMention });
+        return;
+      } else if (!userOk) {
+        return;
+      }
       if (event.side === "buy") {
-        if (state.complete) return;
+        if (state.complete) {
+          reject(event.ts, "copy_buy_on_completed_curve", { mint: event.mint });
+          return;
+        }
         if (positions.has(event.mint) || pending.some((o) => o.mint === event.mint)) return;
         if (reservedCount() >= p.maxPositions) return;
         queue(event, state, now);
       } else if (event.side === "sell") {
         const pos = positions.get(event.mint);
         if (!pos) return;
-        if (state.complete) {
-          pos.stuck = true;
-          log(event.ts, `copy sell but curve complete, stuck ${event.mint}`);
-          return;
-        }
         const ratio = getPrice(state) / pos.entrySpot;
         closeLive(pos, event, state, { reason: "copy-sell", ratio });
       }
     }
   }
 
-  function queue(event, state, now) {
-    const expected = calcBuyTokens(state, p.buySol);
-    const minTokens = (expected * BigInt(10_000 - slippageBps)) / 10_000n;
-    pending.push({
-      mint: event.mint,
-      readyMs: now + latencyMs,
-      expireMs: now + latencyMs + (staleMs ?? 0),
-      minTokens,
-    });
-  }
-
   for (const event of events) {
-    quotes.set(event.mint, reserves(event));
-    tryFill(event);
-    if (strategy !== "copy") checkExits(event);
-    signal(event);
-    if (latencyMs === 0) tryFill(event);
+    const parsed = parseQuote(event);
+    if (!parsed.quote) {
+      reject(event.ts, parsed.error, { mint: event.mint ?? null });
+      snapshot(event.ts || events[0].ts);
+      continue;
+    }
+    const state = parsed.quote;
+    quotes.set(event.mint, state);
+    tryFill(event, state);
+    if (strategy !== "copy") checkExits(event, state);
+    signal(event, state);
+    if (latencyMs === 0) tryFill(event, state);
     snapshot(event.ts);
   }
 
-  // Expire pendings that never saw a fresh quote.
-  if (staleMs != null) {
-    const end = ms(events[events.length - 1].ts);
-    for (const order of pending) {
-      if (end > order.expireMs) {
-        staleSkips += 1;
-        log(events[events.length - 1].ts, `expired unfilled buy ${order.mint}`);
-      }
+  const endTs = events[events.length - 1].ts;
+  const endMs = ms(endTs);
+  for (const order of [...pending]) {
+    const expired = staleMs != null ? endMs > order.expireMs : endMs >= order.readyMs;
+    if (!expired && staleMs == null && endMs < order.readyMs) {
+      staleSkips += 1;
+      dropPending(order, endTs, "no_fill_quote");
+      continue;
+    }
+    if (expired || endMs >= order.readyMs) {
+      staleSkips += 1;
+      dropPending(order, endTs, staleMs != null && endMs > order.expireMs ? "stale_quote" : "no_fill_quote");
     }
   }
 
   const open = [...positions.values()].map((pos) => {
     const q = quotes.get(pos.mint);
     const mark = markPosition(pos);
-    const spot = q ? getPrice(q) / pos.entrySpot : null;
+    const stuck = pos.stuck || Boolean(q?.complete) || !q?.completeKnown;
     return {
       mint: pos.mint,
       tokens: pos.tokens.toString(),
       entryTs: pos.entryTs,
       spentSol: lamportsToSol(pos.spentLamports),
-      stuck: pos.stuck || Boolean(q?.complete),
+      stuck,
+      assumedExit: false,
+      valuation: stuck ? "conservative_zero_no_supported_venue" : "bonding_curve_liquidation_net_of_exit_overhead",
       markSol: lamportsToSol(mark),
-      printedUnrealizedSpotPnlSol: spot == null ? null : lamportsToSol(pos.spentLamports) * (spot - 1),
     };
   });
 
@@ -381,16 +487,21 @@ export function runScenario(scenario, options = {}) {
 
   return {
     strategy,
-    empirical: false,
+    evaluationVariant: "corrected",
+    attribution,
+    empirical: scenario.empirical === true,
+    empiricalBacktest: false,
+    provenStrategy: false,
     edgeClaim: false,
     profitClaim: false,
-    interpretation: "synthetic_mechanism_check",
-    solUsdAssumption: solUsd,
-    equityUsdStart: equityUsd,
+    interpretation: scenario.empirical === true ? "observed_public_rpc_not_a_backtest" : "synthetic_mechanism_check",
+    solUsdAssumption: usdKnown ? solUsd : { usd: null, empirical: false, note: "No observed SOL/USD print. USD budget was not applied." },
+    usdBudgetApplied: usdKnown,
+    equityUsdStart: usdKnown ? equityUsd : null,
     startingSol: lamportsToSol(startCash),
     endingEquitySol: lamportsToSol(endEquity),
     netPnlSol: lamportsToSol(net),
-    netPnlUsdAtAssumption: lamportsToSol(net) * solUsd.usd,
+    netPnlUsdAtAssumption: usdKnown ? lamportsToSol(net) * solUsd.usd : null,
     maxDrawdownSol: lamportsToSol(maxDrawdown),
     printedSpotPnlSolOnCloses: printed,
     tradeCountClosed: closed.length,
@@ -399,6 +510,7 @@ export function runScenario(scenario, options = {}) {
     failedAttempts,
     staleSkips,
     slippageSkips,
+    rejectionCount: rejections.length,
     overheadSolPerAttempt: lamportsToSol(OVERHEAD),
     params: {
       ...p,
@@ -408,8 +520,11 @@ export function runScenario(scenario, options = {}) {
       extraSlippageBps,
       failureEvery,
       slippageBps,
-      exitPolicy: "live-curve-no-migration-sell",
+      exitPolicy: "bonding-curve-only-stuck-marks-zero",
+      overheadPaidOnSubmit: true,
     },
+    rejections,
+    ledger,
     closed,
     open,
     logs,

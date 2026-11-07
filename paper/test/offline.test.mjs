@@ -8,10 +8,14 @@ import { spawnSync } from "node:child_process";
 import { calcBuyTokens as repoBuy, calcSellSol as repoSell, getPrice as repoPrice } from "../../lib/pumpfun.mjs";
 import { txOverheadLamports, priorityFeeLamports, tipLamports } from "../costs.mjs";
 import { calcBuyTokens, calcSellSol, fillPctOfVirtual85, getPrice } from "../curve.mjs";
+import { runSourceBaseline } from "../baseline.mjs";
+import { decodeTransaction } from "../decode-tx.mjs";
 import { runScenario } from "../engine.mjs";
+import { evaluateObservedSniper } from "../observed.mjs";
+import { assertReadMethod } from "../public-rpc.mjs";
+import { parseResearchTradeEvent, parseSniperTradeEvent, TRADE_EVENT_DISC } from "../parsers.mjs";
 import { renderDashboard } from "../dashboard.mjs";
 import { forwardStatus } from "../forward.mjs";
-import { parseResearchTradeEvent, parseSniperTradeEvent } from "../parsers.mjs";
 import {
   copyLookahead,
   copyTape,
@@ -161,13 +165,23 @@ test("volume analyzer import fails because CREATE_EVENT_PREFIX is not exported",
 });
 
 test("paper engine does not import network, wallet, or send paths", () => {
-  const dir = path.join(root, "paper");
-  const files = fs.readdirSync(dir).filter((name) => name.endsWith(".mjs"));
   const banned = ["@solana/web3.js", "lib/rpc.mjs", "lib/wallet.mjs", "lib/tx.mjs", "lib/ws.mjs", "sendRawTransaction", "Keypair", "generateKeypair"];
-  for (const name of files) {
-    const text = fs.readFileSync(path.join(dir, name), "utf8");
+  const files = [];
+  const walk = (dir) => {
+    for (const name of fs.readdirSync(dir)) {
+      const full = path.join(dir, name);
+      if (fs.statSync(full).isDirectory()) {
+        if (name === "test" || name === "out" || name === "fixtures") continue;
+        walk(full);
+      } else if (name.endsWith(".mjs")) files.push(full);
+    }
+  };
+  walk(path.join(root, "paper"));
+  assert.ok(files.length > 5);
+  for (const full of files) {
+    const text = fs.readFileSync(full, "utf8");
     for (const token of banned) {
-      assert.equal(text.includes(token), false, `${name} contains ${token}`);
+      assert.equal(text.includes(token), false, `${full} contains ${token}`);
     }
   }
 });
@@ -219,6 +233,123 @@ test("dry-run still loads a keypair and the basic trader has no dry-run flag", (
   assert.equal(basic.includes("--dry-run"), false);
   assert.match(basic, /loadKeypair\(\)/);
   assert.match(basic, /sendTxWithRetry/);
+});
+
+test("corrected copy ignores a mention that is not the trade user", () => {
+  const mismatch = {
+    ...copyTape,
+    events: copyTape.events.map((event) => (
+      event.side ? { ...event, user: "OtherWallet", logMention: "WalletA" } : event
+    )),
+  };
+  const corrected = runScenario(mismatch, { strategy: "copy" });
+  const sourceMention = runScenario(mismatch, { strategy: "copy", attribution: "source-mention" });
+  assert.equal(corrected.tradeCountClosed, 0);
+  assert.equal(corrected.tradeCountOpen, 0);
+  assert.ok(corrected.rejections.some((row) => row.reason === "attribution_mismatch"));
+  assert.equal(sourceMention.tradeCountClosed, 1);
+  assert.equal(sourceMention.attribution, "source-mention");
+});
+
+test("missing reserves and a migration before fill do not invent a position", () => {
+  const missing = runScenario({
+    ...flatRoundtrip,
+    events: [{ ...flatRoundtrip.events[0], virtualSol: null, virtualToken: null }],
+  }, { strategy: "sniper" });
+  assert.equal(missing.tradeCountClosed + missing.tradeCountOpen, 0);
+  assert.ok(missing.rejections.some((row) => row.reason === "missing_reserves"));
+
+  const migrated = runScenario({
+    ...flatRoundtrip,
+    id: "fixture-migrate-before-fill",
+    events: [
+      flatRoundtrip.events[0],
+      { ...flatRoundtrip.events[1], ts: "2026-01-01T00:00:02.000Z", complete: true },
+    ],
+  }, { strategy: "sniper", entryLatencyMs: 2000 });
+  assert.equal(migrated.tradeCountOpen, 0);
+  assert.equal(migrated.tradeCountClosed, 0);
+  assert.ok(migrated.netPnlSol < 0);
+  assert.ok(migrated.rejections.some((row) => row.reason === "migrated_before_fill"));
+  assert.equal(migrated.open.length, 0);
+});
+
+test("source baseline spot print omits costs that the corrected sniper applies", () => {
+  const baseline = runSourceBaseline(spotJump);
+  const corrected = runScenario(spotJump, { strategy: "sniper" });
+  assert.equal(baseline.evaluationVariant, "source-baseline");
+  assert.equal(baseline.costsApplied, false);
+  assert.ok(Math.abs(baseline.printedSpotPnlSolOnCloses - 0.0882) < 1e-6);
+  assert.equal(corrected.evaluationVariant, "corrected");
+  assert.ok(corrected.netPnlSol < baseline.printedSpotPnlSolOnCloses);
+  assert.equal(corrected.provenStrategy, false);
+});
+
+test("corrected copy without prior evidence is refused", () => {
+  const bare = { ...copyTape, copyTargetEvidence: undefined };
+  assert.throws(() => runScenario(bare, { strategy: "copy" }), /copyTargetEvidence/);
+});
+
+test("observed sniper sample without a verified create does not invent fills", () => {
+  const result = evaluateObservedSniper([{
+    source: "public-rpc",
+    synthetic: false,
+    signature: "sig",
+    ts: "2026-11-07T11:37:12.000Z",
+    kind: "quote",
+    mint: "aa",
+    virtualSol: "30000000000",
+    virtualToken: "1073000000000000",
+    complete: false,
+    createInstructionVerified: false,
+  }]);
+  assert.equal(result.tradeCountClosed, 0);
+  assert.equal(result.netPnlSol, null);
+  assert.equal(result.profitClaim, false);
+  assert.equal(result.provenStrategy, false);
+  assert.equal(result.usdBudgetApplied, false);
+  assert.ok(result.rejections.some((row) => row.reason === "no_verified_create_in_sample"));
+  assert.throws(() => evaluateObservedSniper([{ synthetic: true, kind: "quote" }]), /synthetic/);
+});
+
+test("decoder keeps an observed sell and the RPC client refuses a broadcast method", () => {
+  const raw = Buffer.alloc(129);
+  TRADE_EVENT_DISC.copy(raw, 0);
+  raw[56] = 0;
+  raw.writeBigUInt64LE(30_000_000_000n, 97);
+  raw.writeBigUInt64LE(1_073_000_000_000_000n, 105);
+  raw.writeBigUInt64LE(1n, 113);
+  raw.writeBigUInt64LE(1n, 121);
+  const tx = {
+    slot: 1,
+    blockTime: 1794051432,
+    meta: {
+      fee: 25000,
+      err: null,
+      logMessages: ["Program log: Instruction: Sell", `Program data: ${raw.toString("base64")}`],
+    },
+  };
+  const rows = decodeTransaction(tx, "sig");
+  assert.equal(rows[0].kind, "quote");
+  assert.equal(rows[0].side, "sell");
+  assert.equal(rows[0].createInstructionVerified, false);
+  assert.equal(rows[0].source, "public-rpc");
+  assert.equal(parseResearchTradeEvent(raw).isBuy, false);
+  assert.throws(() => assertReadMethod("sendTransaction"), /PAPER_RPC_FORBIDDEN|refuses/);
+});
+
+test("24h host plan stays unarmed without the operator phrase", () => {
+  const proc = spawnSync(process.execPath, ["paper/host/run.mjs"], {
+    cwd: root,
+    encoding: "utf8",
+    env: { ...process.env, PAPER_PERSISTENT_HOST: "" },
+  });
+  assert.equal(proc.status, 2);
+  const body = JSON.parse(proc.stdout);
+  assert.equal(body.started, false);
+  assert.equal(body.start, null);
+  assert.equal(body.autoStopAt, null);
+  assert.ok(body.requirements.length >= 5);
 });
 
 test("package.json does not declare ws, which lib/ws.mjs imports", () => {

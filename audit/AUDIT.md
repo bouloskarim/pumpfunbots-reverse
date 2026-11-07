@@ -2,6 +2,26 @@
 
 Scope is paper-only. No keypair was generated, no secret was read, no transaction was signed or broadcast, and no paid RPC was used. Work is on `bouloskarim/pumpfunbots-reverse`, not upstream `zostaff/pumpfunbots-reverse`.
 
+## Repair status (simulator fixed, strategy not proven)
+
+The corrected paper engine now:
+
+- Pays the 225,000-lamport overhead when an attempt is submitted, including a buy that later misses, fails slippage, or finds the curve already complete. No tokens are granted in those cases.
+- Rejects a quote with missing or non-positive reserves instead of inventing a fill.
+- Attributes copy trades to `event.user` only. A log mention of the target with a different user is `attribution_mismatch`. The old mention-only behavior remains available as `attribution: "source-mention"` and is labeled as the source baseline, not the evaluation.
+- Leaves a failed sell open. A completed or unknown curve is stuck and marked at 0. That mark is a valuation, not a sale, and no other venue is assumed.
+- Keeps the sniper dry-run spot print as `paper/baseline.mjs` (`costsApplied: false`), separate from the corrected net.
+
+The market runner tests **only the sniper**, at the code defaults (0.1 SOL, take-profit 2.0x, stop-loss 0.5x, timeout 120s, dev-buy filter 0). Copy is excluded: no wallet was qualified before the tape, and the README's 80% list is not a prospective list. Graduation is excluded: the virtual-SOL gauge is not a verified migration signal, and the code cannot sell after `complete`.
+
+`npm run paper:test` — 25 passed, 0 failed.
+
+Public RPC smoke at **2026-11-07T11:59:38.460Z**, endpoint `https://api.mainnet-beta.solana.com`, slot 466504267. Data health `ok`. Page of 20 signatures, 4 failed, 4 transactions fetched, 6 read calls, 0 errors. Instructions seen included `Buy`, `Sell`, `SellV2`, `BuyExactQuoteInV3`. **No `BondingCurveV3` or `BondingCurveJupiter`.** The sniper therefore rejected the sample (`no_verified_create_in_sample`): 3 quote rows, 0 creates, 0 attempts, **net SOL not published**. `provenStrategy: false`. `profitClaim: false`. The $1000 budget was not converted because these rows have no SOL/USD print.
+
+The 24-hour clock is **not** armed. `start`, `end`, `autoStopAt`, and the trial heartbeat are null. Smoke heartbeats are per-call logs for this bounded read only. The host package is `paper/host/README.md`. `node paper/host/run.mjs` exits 2 without `--persistent-host` and `PAPER_PERSISTENT_HOST=I_CONTROL_THIS_MACHINE`. This VM is not a persistent host. No server was purchased or provisioned.
+
+Synthetic corrected sniper, still not observed profits: flat tape spot print 0 SOL, corrected net **-0.003082624 SOL**. Made-up 1.882x tape spot print +0.0882 SOL, corrected net +0.0827954 SOL, exit by the 120s timeout rather than a 3-second take-profit. That positive figure is the fixture's arithmetic.
+
 Status at generation time is in `audit/results.json` (`label: STATIC_AS_OF`). The HTML dashboard is a file, not a process.
 
 ## 24-hour forward trial

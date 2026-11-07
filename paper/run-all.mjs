@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { runSourceBaseline } from "./baseline.mjs";
 import { runScenario } from "./engine.mjs";
 import { renderDashboard } from "./dashboard.mjs";
 import { forwardStatus } from "./forward.mjs";
@@ -50,6 +51,22 @@ for (const [scenario, strategyName] of jobs) {
   }
 }
 
+const baselines = [flatRoundtrip, spotJump].map((scenario) => {
+  const spot = runSourceBaseline(scenario);
+  const corrected = runs.find((run) => run.scenarioId === scenario.id && run.strategy === "sniper" && run.variant === "baseline-costs-latency0");
+  return {
+    scenarioId: scenario.id,
+    sourceBaselineSpotSol: spot.printedSpotPnlSolOnCloses,
+    correctedNetSol: corrected?.netPnlSol ?? null,
+    rows: [
+      { scenarioId: scenario.id, variant: "source-baseline", printedSpotPnlSol: spot.printedSpotPnlSolOnCloses, netPnlSol: null, costsApplied: false },
+      { scenarioId: scenario.id, variant: "corrected", printedSpotPnlSol: corrected?.printedSpotPnlSolOnCloses ?? null, netPnlSol: corrected?.netPnlSol ?? null, costsApplied: true },
+    ],
+  };
+});
+
+const smokePath = path.join(outDir, "smoke-status.json");
+const smoke = fs.existsSync(smokePath) ? JSON.parse(fs.readFileSync(smokePath, "utf8")) : null;
 const generatedAt = new Date().toISOString();
 const report = {
   generatedAt,
@@ -57,17 +74,23 @@ const report = {
   label: "STATIC_AS_OF",
   live: false,
   empiricalBacktest: false,
+  provenStrategy: false,
+  selectedStrategy: "sniper",
   edgeClaim: false,
   profitClaim: false,
-  note: "Fixture mechanism checks only. No historical wallet tape was replayed. A 24-hour sample would not establish an edge even if it were run.",
+  note: "Synthetic checks are separate from the public-RPC smoke. Neither is a profitability claim. The 24-hour trial is not started.",
   forward: forwardStatus(),
+  baselines: baselines.flatMap((row) => row.rows),
+  smoke,
   runs,
 };
 
 const dashboard = renderDashboard({
   generatedAt,
   forward: report.forward,
-  runs: runs.filter((r) => r.variant === "baseline-costs-latency0" || r.variant === "latency-2000ms"),
+  baselines: report.baselines,
+  smoke: report.smoke,
+  runs: runs.filter((r) => r.strategy === "sniper" && (r.variant === "baseline-costs-latency0" || r.variant === "latency-2000ms")),
 });
 
 const summary = {
@@ -80,6 +103,23 @@ const summary = {
   profitClaim: false,
   note: report.note,
   forward: report.forward,
+  selectedStrategy: "sniper",
+  provenStrategy: false,
+  baselines: report.baselines,
+  smoke: smoke
+    ? {
+        dataHealth: smoke.dataHealth,
+        recordedAt: smoke.recording?.recordedAt ?? null,
+        slot: smoke.recording?.slot ?? null,
+        calls: smoke.recording?.calls ?? null,
+        tradeCountClosed: smoke.evaluation?.tradeCountClosed ?? null,
+        tradeCountOpen: smoke.evaluation?.tradeCountOpen ?? null,
+        netPnlSol: smoke.evaluation?.netPnlSol ?? null,
+        rejections: smoke.evaluation?.rejections ?? [],
+        twentyFourHourTrialStarted: false,
+        provenStrategy: false,
+      }
+    : null,
   chainProbe: JSON.parse(fs.readFileSync(path.join(root, "audit", "chain-probe.json"), "utf8")),
   runs: runs.map((run) => ({
     scenarioId: run.scenarioId,

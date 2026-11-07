@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-07T11:46:52.086Z",
+  "generatedAt": "2026-11-07T11:59:38.493Z",
   "timezone": "UTC",
   "label": "STATIC_AS_OF",
   "live": false,
   "empiricalBacktest": false,
   "edgeClaim": false,
   "profitClaim": false,
-  "note": "Fixture mechanism checks only. No historical wallet tape was replayed. A 24-hour sample would not establish an edge even if it were run.",
+  "note": "Synthetic checks are separate from the public-RPC smoke. Neither is a profitability claim. The 24-hour trial is not started.",
   "forward": {
     "started": false,
     "timezone": "UTC",
@@ -30,6 +30,56 @@
         "detail": "The repository has no data/raw tape, no data/windows.json, and no credits ledger. The 666-wallet study cannot be replayed from checked-in observations."
       }
     ]
+  },
+  "selectedStrategy": "sniper",
+  "provenStrategy": false,
+  "baselines": [
+    {
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "source-baseline",
+      "printedSpotPnlSol": 0,
+      "netPnlSol": null,
+      "costsApplied": false
+    },
+    {
+      "scenarioId": "fixture-flat-roundtrip",
+      "variant": "corrected",
+      "printedSpotPnlSol": 0,
+      "netPnlSol": -0.003082624,
+      "costsApplied": true
+    },
+    {
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "source-baseline",
+      "printedSpotPnlSol": 0.08820000000000001,
+      "netPnlSol": null,
+      "costsApplied": false
+    },
+    {
+      "scenarioId": "fixture-spot-jump-1_882x",
+      "variant": "corrected",
+      "printedSpotPnlSol": 0.08820000000000001,
+      "netPnlSol": 0.0827954,
+      "costsApplied": true
+    }
+  ],
+  "smoke": {
+    "dataHealth": "ok",
+    "recordedAt": "2026-11-07T11:59:38.460Z",
+    "slot": 466504267,
+    "calls": 6,
+    "tradeCountClosed": 0,
+    "tradeCountOpen": 0,
+    "netPnlSol": null,
+    "rejections": [
+      {
+        "reason": "no_verified_create_in_sample",
+        "observedRows": 3,
+        "quoteRows": 3
+      }
+    ],
+    "twentyFourHourTrialStarted": false,
+    "provenStrategy": false
   },
   "chainProbe": {
     "label": "read-only public RPC probe, not a backtest and not a profit measurement",
@@ -146,7 +196,8 @@
           "reason": "timeout",
           "printedSpotPnlSol": 0,
           "holdSec": 121,
-          "exitPolicy": "live-curve"
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
         }
       ],
       "open": []
@@ -178,8 +229,9 @@
           "entryTs": "2026-01-01T00:00:03.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.097142376,
-          "printedUnrealizedSpotPnlSol": 0
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
         }
       ]
     },
@@ -214,7 +266,8 @@
           "reason": "timeout",
           "printedSpotPnlSol": 0,
           "holdSec": 121,
-          "exitPolicy": "live-curve"
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
         }
       ],
       "open": []
@@ -246,8 +299,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.097142376,
-          "printedUnrealizedSpotPnlSol": 0
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
         }
       ]
     },
@@ -278,8 +332,9 @@
           "entryTs": "2026-01-01T00:00:03.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.097142376,
-          "printedUnrealizedSpotPnlSol": 0
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
         }
       ]
     },
@@ -424,7 +479,8 @@
           "reason": "timeout",
           "printedSpotPnlSol": 0.08820000000000001,
           "holdSec": 121,
-          "exitPolicy": "live-curve"
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
         }
       ],
       "open": []
@@ -444,7 +500,7 @@
       "printedSpotPnlSolOnCloses": 0,
       "tradeCountClosed": 0,
       "tradeCountOpen": 0,
-      "attempts": 0,
+      "attempts": 1,
       "failedAttempts": 0,
       "staleSkips": 0,
       "slippageSkips": 1,
@@ -482,7 +538,8 @@
           "reason": "timeout",
           "printedSpotPnlSol": 0.08820000000000001,
           "holdSec": 121,
-          "exitPolicy": "live-curve"
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
         }
       ],
       "open": []
@@ -514,8 +571,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.1830204,
-          "printedUnrealizedSpotPnlSol": 0.08820000000000001
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.1830204
         }
       ]
     },
@@ -534,7 +592,7 @@
       "printedSpotPnlSolOnCloses": 0,
       "tradeCountClosed": 0,
       "tradeCountOpen": 0,
-      "attempts": 0,
+      "attempts": 1,
       "failedAttempts": 0,
       "staleSkips": 0,
       "slippageSkips": 1,
@@ -568,8 +626,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": true,
-          "markSol": 0,
-          "printedUnrealizedSpotPnlSol": 0.10535714285714284
+          "assumedExit": false,
+          "valuation": "conservative_zero_no_supported_venue",
+          "markSol": 0
         }
       ]
     },
@@ -581,14 +640,14 @@
       "edgeClaim": false,
       "profitClaim": false,
       "startingSol": 6.666666666,
-      "endingEquitySol": 6.666666666,
-      "netPnlSol": 0,
-      "netPnlUsdAtAssumption": 0,
-      "maxDrawdownSol": 0,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
       "printedSpotPnlSolOnCloses": 0,
       "tradeCountClosed": 0,
       "tradeCountOpen": 0,
-      "attempts": 0,
+      "attempts": 1,
       "failedAttempts": 0,
       "staleSkips": 0,
       "slippageSkips": 0,
@@ -622,8 +681,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": true,
-          "markSol": 0,
-          "printedUnrealizedSpotPnlSol": 0.10535714285714284
+          "assumedExit": false,
+          "valuation": "conservative_zero_no_supported_venue",
+          "markSol": 0
         }
       ]
     },
@@ -654,8 +714,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": true,
-          "markSol": 0,
-          "printedUnrealizedSpotPnlSol": 0.10535714285714284
+          "assumedExit": false,
+          "valuation": "conservative_zero_no_supported_venue",
+          "markSol": 0
         }
       ]
     },
@@ -667,14 +728,14 @@
       "edgeClaim": false,
       "profitClaim": false,
       "startingSol": 6.666666666,
-      "endingEquitySol": 6.666666666,
-      "netPnlSol": 0,
-      "netPnlUsdAtAssumption": 0,
-      "maxDrawdownSol": 0,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
       "printedSpotPnlSolOnCloses": 0,
       "tradeCountClosed": 0,
       "tradeCountOpen": 0,
-      "attempts": 0,
+      "attempts": 1,
       "failedAttempts": 0,
       "staleSkips": 1,
       "slippageSkips": 0,
@@ -712,7 +773,8 @@
           "reason": "copy-sell",
           "printedSpotPnlSol": 0.04410000000000001,
           "holdSec": 3,
-          "exitPolicy": "live-curve"
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
         }
       ],
       "open": []
@@ -732,7 +794,7 @@
       "printedSpotPnlSolOnCloses": 0,
       "tradeCountClosed": 0,
       "tradeCountOpen": 0,
-      "attempts": 0,
+      "attempts": 1,
       "failedAttempts": 0,
       "staleSkips": 0,
       "slippageSkips": 1,
@@ -770,7 +832,8 @@
           "reason": "copy-sell",
           "printedSpotPnlSol": 0.04410000000000001,
           "holdSec": 3,
-          "exitPolicy": "live-curve"
+          "exitPolicy": "bonding-curve-only",
+          "assumedExit": false
         }
       ],
       "open": []
@@ -802,8 +865,9 @@
           "entryTs": "2026-01-01T00:00:01.000Z",
           "spentSol": 0.05,
           "stuck": false,
-          "markSol": 0.091699061,
-          "printedUnrealizedSpotPnlSol": 0.04410000000000001
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.091699061
         }
       ]
     },
@@ -822,7 +886,7 @@
       "printedSpotPnlSolOnCloses": 0,
       "tradeCountClosed": 0,
       "tradeCountOpen": 0,
-      "attempts": 0,
+      "attempts": 1,
       "failedAttempts": 0,
       "staleSkips": 0,
       "slippageSkips": 1,
@@ -856,8 +920,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.097142376,
-          "printedUnrealizedSpotPnlSol": 0
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
         }
       ]
     },
@@ -888,8 +953,9 @@
           "entryTs": "2026-01-01T00:00:30.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.097142376,
-          "printedUnrealizedSpotPnlSol": 0
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
         }
       ]
     },
@@ -920,8 +986,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.096171862,
-          "printedUnrealizedSpotPnlSol": 0
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.096171862
         }
       ]
     },
@@ -952,8 +1019,9 @@
           "entryTs": "2026-01-01T00:00:00.000Z",
           "spentSol": 0.1,
           "stuck": false,
-          "markSol": 0.097142376,
-          "printedUnrealizedSpotPnlSol": 0
+          "assumedExit": false,
+          "valuation": "bonding_curve_liquidation_net_of_exit_overhead",
+          "markSol": 0.097142376
         }
       ]
     },
@@ -965,14 +1033,14 @@
       "edgeClaim": false,
       "profitClaim": false,
       "startingSol": 6.666666666,
-      "endingEquitySol": 6.666666666,
-      "netPnlSol": 0,
-      "netPnlUsdAtAssumption": 0,
-      "maxDrawdownSol": 0,
+      "endingEquitySol": 6.666441666,
+      "netPnlSol": -0.000225,
+      "netPnlUsdAtAssumption": -0.03375,
+      "maxDrawdownSol": 0.000225,
       "printedSpotPnlSolOnCloses": 0,
       "tradeCountClosed": 0,
       "tradeCountOpen": 0,
-      "attempts": 0,
+      "attempts": 1,
       "failedAttempts": 0,
       "staleSkips": 1,
       "slippageSkips": 0,

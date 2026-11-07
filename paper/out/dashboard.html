@@ -19,10 +19,35 @@
 </style>
 </head>
 <body>
-  <p class="banner">STATIC SNAPSHOT — NOT LIVE. As of 2026-11-07T11:46:52.086Z. No server, no refresh, no wallet, no transaction path.</p>
-  <h1>Paper evaluation of sniper, copy, and graduation</h1>
-  <p class="sub">Virtual starting equity $1000 per book, converted at an assumed 150 USD per SOL that was not observed. A positive number on this page is the accounting result of a synthetic quote. It is not an observed profit and it is not an edge. The flat-curve sniper book is negative after the repo's own fees, tip, and priority fee.</p>
-  <p class="sub">Forward trial started: no. no_persistent_runtime, data_plane_not_durable, no_research_dataset</p>
+  <p class="banner">STATIC SNAPSHOT — NOT LIVE. As of 2026-11-07T11:59:38.493Z. Fixed simulator, not a proven strategy. No server, no wallet, no transaction path.</p>
+  <h1>Sniper paper evaluation</h1>
+  <p class="sub">The market runner tests one strategy: the sniper, at the code defaults. Copy is not run on market data because no wallet was qualified before the tape. Graduation is not run on market data because a completed curve has no implemented sell. Synthetic rows for those two strategies are mechanism checks and are not added into the sniper book.</p>
+  <p class="sub">$1000 virtual capital is converted at an unobserved 150 USD/SOL only on synthetic fixtures. A positive synthetic number is not an observed profit. Public RPC rows do not include a SOL/USD print, so the smoke sample does not publish a dollar result.</p>
+  <p class="sub">24-hour trial started: no. no_persistent_runtime, data_plane_not_durable, no_research_dataset</p>
+  <section>
+    <h2>Public RPC smoke — data health ok</h2>
+    <p class="meta">Recorded 2026-11-07T11:59:38.460Z. Endpoint https://api.mainnet-beta.solana.com. This is not a 24-hour trial. provenStrategy=false. profitClaim=false.</p>
+    <dl>
+      <div><dt>Slot</dt><dd>466504267</dd></div>
+      <div><dt>Signature page</dt><dd>20</dd></div>
+      <div><dt>Failed signatures in page</dt><dd>4</dd></div>
+      <div><dt>Transactions decoded</dt><dd>4</dd></div>
+      <div><dt>Sniper closes</dt><dd>0</dd></div>
+      <div><dt>Sniper opens</dt><dd>0</dd></div>
+      <div><dt>Modeled net SOL</dt><dd>not published</dd></div>
+      <div><dt>RPC calls</dt><dd>6</dd></div>
+    </dl>
+    <p class="sub">Rejections: no_verified_create_in_sample. No fill. A sniper entry needs a verified create instruction and reserves in the same sample. This sample did not have one.</p>
+  </section>
+  <section>
+    <h2>Sniper source baseline versus corrected costs</h2>
+    <p class="meta">Synthetic tapes. Source baseline is the dry-run spot ratio. Corrected applies curve fees, impact, and 0.000225 SOL overhead per submitted attempt.</p>
+    <table>
+      <caption>SOL, synthetic sniper only</caption>
+      <thead><tr><th>Tape</th><th>Variant</th><th>Spot print SOL</th><th>Corrected net SOL</th><th>Costs applied</th></tr></thead>
+      <tbody><tr><td>fixture-flat-roundtrip</td><td>source-baseline</td><td>0.000000</td><td>—</td><td>false</td></tr><tr><td>fixture-flat-roundtrip</td><td>corrected</td><td>0.000000</td><td>-0.003083</td><td>true</td></tr><tr><td>fixture-spot-jump-1_882x</td><td>source-baseline</td><td>+0.088200</td><td>—</td><td>false</td></tr><tr><td>fixture-spot-jump-1_882x</td><td>corrected</td><td>+0.088200</td><td>+0.082795</td><td>true</td></tr></tbody>
+    </table>
+  </section>
   <section>
         <h2>fixture-flat-roundtrip · sniper · baseline-costs-latency0</h2>
         <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
@@ -88,70 +113,6 @@
         </table>
       </section>
 <section>
-        <h2>fixture-flat-roundtrip · sniper-env-example · baseline-costs-latency0</h2>
-        <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
-        <dl>
-          <div><dt>Closed trades</dt><dd>0</dd></div>
-          <div><dt>Open trades</dt><dd>0</dd></div>
-          <div><dt>Net PnL SOL (synthetic)</dt><dd>0.000000</dd></div>
-          <div><dt>USD at assumed 150 rate</dt><dd>0.000000</dd></div>
-          <div><dt>Max drawdown SOL</dt><dd>0.000000</dd></div>
-          <div><dt>Dry-run spot PnL on closes</dt><dd>0.000000</dd></div>
-          <div><dt>Ending equity SOL</dt><dd>6.666667</dd></div>
-          <div><dt>Failed attempts</dt><dd>0</dd></div>
-        </dl>
-        <svg viewBox="0 0 640 160" role="img" aria-label="Synthetic equity in SOL">
-          <title>Synthetic equity, SOL, fixture-flat-roundtrip sniper-env-example baseline-costs-latency0</title>
-          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,156.0 320.0,156.0 636.0,156.0" />
-        </svg>
-        <table>
-          <caption>Closed trades</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Exit</th><th>Reason</th><th>Net SOL</th><th>Printed spot SOL</th><th>Hold sec</th></tr></thead>
-          <tbody>
-            <tr><td colspan="7">No closed trades</td></tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Open trades at end of tape</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Spent SOL</th><th>Mark SOL</th><th>Stuck after migration</th></tr></thead>
-          <tbody>
-            <tr><td colspan="5">No open trades</td></tr>
-          </tbody>
-        </table>
-      </section>
-<section>
-        <h2>fixture-flat-roundtrip · sniper-env-example · latency-2000ms</h2>
-        <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
-        <dl>
-          <div><dt>Closed trades</dt><dd>0</dd></div>
-          <div><dt>Open trades</dt><dd>0</dd></div>
-          <div><dt>Net PnL SOL (synthetic)</dt><dd>0.000000</dd></div>
-          <div><dt>USD at assumed 150 rate</dt><dd>0.000000</dd></div>
-          <div><dt>Max drawdown SOL</dt><dd>0.000000</dd></div>
-          <div><dt>Dry-run spot PnL on closes</dt><dd>0.000000</dd></div>
-          <div><dt>Ending equity SOL</dt><dd>6.666667</dd></div>
-          <div><dt>Failed attempts</dt><dd>0</dd></div>
-        </dl>
-        <svg viewBox="0 0 640 160" role="img" aria-label="Synthetic equity in SOL">
-          <title>Synthetic equity, SOL, fixture-flat-roundtrip sniper-env-example latency-2000ms</title>
-          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,156.0 320.0,156.0 636.0,156.0" />
-        </svg>
-        <table>
-          <caption>Closed trades</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Exit</th><th>Reason</th><th>Net SOL</th><th>Printed spot SOL</th><th>Hold sec</th></tr></thead>
-          <tbody>
-            <tr><td colspan="7">No closed trades</td></tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Open trades at end of tape</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Spent SOL</th><th>Mark SOL</th><th>Stuck after migration</th></tr></thead>
-          <tbody>
-            <tr><td colspan="5">No open trades</td></tr>
-          </tbody>
-        </table>
-      </section>
-<section>
         <h2>fixture-spot-jump-1_882x · sniper · baseline-costs-latency0</h2>
         <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
         <dl>
@@ -198,135 +159,7 @@
         </dl>
         <svg viewBox="0 0 640 160" role="img" aria-label="Synthetic equity in SOL">
           <title>Synthetic equity, SOL, fixture-spot-jump-1_882x sniper latency-2000ms</title>
-          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,4.0 320.0,156.0 636.0,156.0" />
-        </svg>
-        <table>
-          <caption>Closed trades</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Exit</th><th>Reason</th><th>Net SOL</th><th>Printed spot SOL</th><th>Hold sec</th></tr></thead>
-          <tbody>
-            <tr><td colspan="7">No closed trades</td></tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Open trades at end of tape</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Spent SOL</th><th>Mark SOL</th><th>Stuck after migration</th></tr></thead>
-          <tbody>
-            <tr><td colspan="5">No open trades</td></tr>
-          </tbody>
-        </table>
-      </section>
-<section>
-        <h2>fixture-graduation-virtual-fill · graduation · baseline-costs-latency0</h2>
-        <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
-        <dl>
-          <div><dt>Closed trades</dt><dd>0</dd></div>
-          <div><dt>Open trades</dt><dd>1</dd></div>
-          <div><dt>Net PnL SOL (synthetic)</dt><dd>-0.100225</dd></div>
-          <div><dt>USD at assumed 150 rate</dt><dd>-15.033750</dd></div>
-          <div><dt>Max drawdown SOL</dt><dd>0.100225</dd></div>
-          <div><dt>Dry-run spot PnL on closes</dt><dd>0.000000</dd></div>
-          <div><dt>Ending equity SOL</dt><dd>6.566442</dd></div>
-          <div><dt>Failed attempts</dt><dd>0</dd></div>
-        </dl>
-        <svg viewBox="0 0 640 160" role="img" aria-label="Synthetic equity in SOL">
-          <title>Synthetic equity, SOL, fixture-graduation-virtual-fill graduation baseline-costs-latency0</title>
-          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,4.0 636.0,156.0" />
-        </svg>
-        <table>
-          <caption>Closed trades</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Exit</th><th>Reason</th><th>Net SOL</th><th>Printed spot SOL</th><th>Hold sec</th></tr></thead>
-          <tbody>
-            <tr><td colspan="7">No closed trades</td></tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Open trades at end of tape</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Spent SOL</th><th>Mark SOL</th><th>Stuck after migration</th></tr></thead>
-          <tbody>
-            <tr><td>MintGrad</td><td>2026-01-01T00:00:00.000Z</td><td>0.100000</td><td>0.000000</td><td>yes</td></tr>
-          </tbody>
-        </table>
-      </section>
-<section>
-        <h2>fixture-graduation-virtual-fill · graduation · latency-2000ms</h2>
-        <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
-        <dl>
-          <div><dt>Closed trades</dt><dd>0</dd></div>
-          <div><dt>Open trades</dt><dd>0</dd></div>
-          <div><dt>Net PnL SOL (synthetic)</dt><dd>0.000000</dd></div>
-          <div><dt>USD at assumed 150 rate</dt><dd>0.000000</dd></div>
-          <div><dt>Max drawdown SOL</dt><dd>0.000000</dd></div>
-          <div><dt>Dry-run spot PnL on closes</dt><dd>0.000000</dd></div>
-          <div><dt>Ending equity SOL</dt><dd>6.666667</dd></div>
-          <div><dt>Failed attempts</dt><dd>0</dd></div>
-        </dl>
-        <svg viewBox="0 0 640 160" role="img" aria-label="Synthetic equity in SOL">
-          <title>Synthetic equity, SOL, fixture-graduation-virtual-fill graduation latency-2000ms</title>
-          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,156.0 636.0,156.0" />
-        </svg>
-        <table>
-          <caption>Closed trades</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Exit</th><th>Reason</th><th>Net SOL</th><th>Printed spot SOL</th><th>Hold sec</th></tr></thead>
-          <tbody>
-            <tr><td colspan="7">No closed trades</td></tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Open trades at end of tape</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Spent SOL</th><th>Mark SOL</th><th>Stuck after migration</th></tr></thead>
-          <tbody>
-            <tr><td colspan="5">No open trades</td></tr>
-          </tbody>
-        </table>
-      </section>
-<section>
-        <h2>fixture-copy-mechanism · copy · baseline-costs-latency0</h2>
-        <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
-        <dl>
-          <div><dt>Closed trades</dt><dd>1</dd></div>
-          <div><dt>Open trades</dt><dd>0</dd></div>
-          <div><dt>Net PnL SOL (synthetic)</dt><dd>+0.041474</dd></div>
-          <div><dt>USD at assumed 150 rate</dt><dd>+6.221109</dd></div>
-          <div><dt>Max drawdown SOL</dt><dd>0.001606</dd></div>
-          <div><dt>Dry-run spot PnL on closes</dt><dd>+0.044100</dd></div>
-          <div><dt>Ending equity SOL</dt><dd>6.708141</dd></div>
-          <div><dt>Failed attempts</dt><dd>0</dd></div>
-        </dl>
-        <svg viewBox="0 0 640 160" role="img" aria-label="Synthetic equity in SOL">
-          <title>Synthetic equity, SOL, fixture-copy-mechanism copy baseline-costs-latency0</title>
-          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,150.3 320.0,156.0 636.0,4.0" />
-        </svg>
-        <table>
-          <caption>Closed trades</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Exit</th><th>Reason</th><th>Net SOL</th><th>Printed spot SOL</th><th>Hold sec</th></tr></thead>
-          <tbody>
-            <tr><td>MintCopy</td><td>2026-01-01T00:00:01.000Z</td><td>2026-01-01T00:00:04.000Z</td><td>copy-sell</td><td>+0.041474</td><td>+0.044100</td><td>3</td></tr>
-          </tbody>
-        </table>
-        <table>
-          <caption>Open trades at end of tape</caption>
-          <thead><tr><th>Mint</th><th>Entry</th><th>Spent SOL</th><th>Mark SOL</th><th>Stuck after migration</th></tr></thead>
-          <tbody>
-            <tr><td colspan="5">No open trades</td></tr>
-          </tbody>
-        </table>
-      </section>
-<section>
-        <h2>fixture-copy-mechanism · copy · latency-2000ms</h2>
-        <p class="meta">Synthetic mechanism check. SOL/USD 150 is Arbitrary SOL/USD conversion so a book can start at $1000. Not a market print.</p>
-        <dl>
-          <div><dt>Closed trades</dt><dd>0</dd></div>
-          <div><dt>Open trades</dt><dd>0</dd></div>
-          <div><dt>Net PnL SOL (synthetic)</dt><dd>-0.000225</dd></div>
-          <div><dt>USD at assumed 150 rate</dt><dd>-0.033750</dd></div>
-          <div><dt>Max drawdown SOL</dt><dd>0.000225</dd></div>
-          <div><dt>Dry-run spot PnL on closes</dt><dd>0.000000</dd></div>
-          <div><dt>Ending equity SOL</dt><dd>6.666442</dd></div>
-          <div><dt>Failed attempts</dt><dd>0</dd></div>
-        </dl>
-        <svg viewBox="0 0 640 160" role="img" aria-label="Synthetic equity in SOL">
-          <title>Synthetic equity, SOL, fixture-copy-mechanism copy latency-2000ms</title>
-          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,4.0 320.0,4.0 636.0,156.0" />
+          <polyline fill="none" stroke="#9a3412" stroke-width="2" points="4.0,156.0 320.0,156.0 636.0,156.0" />
         </svg>
         <table>
           <caption>Closed trades</caption>

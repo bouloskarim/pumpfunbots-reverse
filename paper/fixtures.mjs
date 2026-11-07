@@ -90,6 +90,7 @@ export const copyTape = {
   solUsd: SOL_USD,
   copyTargets: ["WalletA"],
   copyTargetsSelectedAt: "2025-12-31T23:00:00.000Z",
+  copyTargetEvidence: "synthetic-fixture-not-a-market-wallet",
   events: [
     ev({ ts: "2026-01-01T00:00:00.000Z", slot: 1, mint: "MintCopy", kind: "quote", ...INITIAL }),
     ev({ ts: "2026-01-01T00:00:01.000Z", slot: 2, mint: "MintCopy", kind: "trade", side: "buy", user: "WalletA", logMention: "WalletA", ...INITIAL }),

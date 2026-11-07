@@ -1,22 +1,25 @@
 # Paper evaluation
 
-Offline replay of the sniper, copy-trader, and graduation-sniper rules. It does not import the RPC client, the wallet loader, or the transaction builder, and it has no code path that signs or broadcasts.
+Corrected sniper accounting, separate from the bot's dry-run spot print. The evaluator cannot sign or broadcast. Live bot files are unchanged.
 
-Books start at $1000 of virtual equity, converted at 150 USD per SOL only inside fixtures. That rate is marked non-empirical. Each strategy has its own book. Source-code defaults are the baseline (`SNIPER_MIN_DEV_BUY` code default is 0; the `.env.example` value 0.5 is a separate profile).
+Market data, when recorded, is sniper-only. Copy needs a wallet list chosen before the tape; the advertised 80% list is not that list. Graduation is not a market trial: a completed curve has no sell in this code, so the position is marked at 0 instead of assuming another venue.
+
+Synthetic fixtures stay in `paper/fixtures/` and are labeled synthetic. They are not mixed into smoke results.
 
 ```bash
 npm ci --ignore-scripts
 npm run paper:test
+npm run paper:smoke
 npm run paper:audit
 node paper/replay.mjs paper/fixtures/fixture-flat-roundtrip.json sniper
-npm run paper:forward   # exits 2; does not start a trial
+npm run paper:host
 ```
 
-`npm run paper:audit` writes:
+`paper:host` exits 2 unless you are on a persistent machine and you arm it. See `paper/host/README.md`.
 
-- `paper/out/dashboard.html` — static snapshot, not a server
-- `paper/out/report.json` — full fixture runs
-- `paper/out/forward-status.json`
-- `audit/results.json` — compact machine-readable summary
+Outputs:
 
-Fixture nets are mechanism checks. They are not observed trading results. A 24-hour forward run is not started from this package; `paper/forward.mjs` only prints the blockers.
+- `paper/out/dashboard.html` — static, not a server
+- `paper/out/smoke-status.json` — bounded public RPC read
+- `audit/results.json` — machine-readable summary
+- `audit/AUDIT.md` — narrative

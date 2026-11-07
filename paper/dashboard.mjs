@@ -20,6 +20,40 @@ function signed(value) {
   return n > 0 ? `+${body}` : body;
 }
 
+function smokeBlock(smoke) {
+  if (!smoke) return "";
+  const rej = (smoke.evaluation?.rejections || []).map((row) => row.reason).join(", ");
+  return `<section>
+    <h2>Public RPC smoke — data health ${esc(smoke.dataHealth)}</h2>
+    <p class="meta">Recorded ${esc(smoke.recording?.recordedAt || "")}. Endpoint ${esc(smoke.recording?.endpoint || "")}. This is not a 24-hour trial. provenStrategy=${smoke.provenStrategy}. profitClaim=${smoke.profitClaim}.</p>
+    <dl>
+      <div><dt>Slot</dt><dd>${esc(smoke.recording?.slot ?? "—")}</dd></div>
+      <div><dt>Signature page</dt><dd>${esc(smoke.recording?.signaturePage ?? "—")}</dd></div>
+      <div><dt>Failed signatures in page</dt><dd>${esc(smoke.recording?.failedInPage ?? "—")}</dd></div>
+      <div><dt>Transactions decoded</dt><dd>${esc(smoke.recording?.transactionsFetched ?? "—")}</dd></div>
+      <div><dt>Sniper closes</dt><dd>${esc(smoke.evaluation?.tradeCountClosed ?? "—")}</dd></div>
+      <div><dt>Sniper opens</dt><dd>${esc(smoke.evaluation?.tradeCountOpen ?? "—")}</dd></div>
+      <div><dt>Modeled net SOL</dt><dd>${smoke.evaluation?.netPnlSol == null ? "not published" : signed(smoke.evaluation.netPnlSol)}</dd></div>
+      <div><dt>RPC calls</dt><dd>${esc(smoke.recording?.calls ?? "—")}</dd></div>
+    </dl>
+    <p class="sub">Rejections: ${esc(rej || "none")}. ${esc(smoke.evaluation?.note || "")}</p>
+  </section>`;
+}
+
+function baselineBlock(baselines) {
+  if (!baselines?.length) return "";
+  const body = baselines.map((row) => `<tr><td>${esc(row.scenarioId)}</td><td>${esc(row.variant)}</td><td>${signed(row.printedSpotPnlSol)}</td><td>${row.netPnlSol == null ? "—" : signed(row.netPnlSol)}</td><td>${esc(row.costsApplied)}</td></tr>`).join("");
+  return `<section>
+    <h2>Sniper source baseline versus corrected costs</h2>
+    <p class="meta">Synthetic tapes. Source baseline is the dry-run spot ratio. Corrected applies curve fees, impact, and 0.000225 SOL overhead per submitted attempt.</p>
+    <table>
+      <caption>SOL, synthetic sniper only</caption>
+      <thead><tr><th>Tape</th><th>Variant</th><th>Spot print SOL</th><th>Corrected net SOL</th><th>Costs applied</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table>
+  </section>`;
+}
+
 function polyline(curve) {
   if (!curve?.length) return "";
   const xs = curve.map((_, i) => i);
@@ -98,10 +132,13 @@ export function renderDashboard(report) {
 </style>
 </head>
 <body>
-  <p class="banner">STATIC SNAPSHOT — NOT LIVE. As of ${esc(report.generatedAt)}. No server, no refresh, no wallet, no transaction path.</p>
-  <h1>Paper evaluation of sniper, copy, and graduation</h1>
-  <p class="sub">Virtual starting equity $1000 per book, converted at an assumed 150 USD per SOL that was not observed. A positive number on this page is the accounting result of a synthetic quote. It is not an observed profit and it is not an edge. The flat-curve sniper book is negative after the repo's own fees, tip, and priority fee.</p>
-  <p class="sub">Forward trial started: ${report.forward.started ? "yes" : "no"}. ${esc(report.forward.blockers.map((b) => b.id).join(", "))}</p>
+  <p class="banner">STATIC SNAPSHOT — NOT LIVE. As of ${esc(report.generatedAt)}. Fixed simulator, not a proven strategy. No server, no wallet, no transaction path.</p>
+  <h1>Sniper paper evaluation</h1>
+  <p class="sub">The market runner tests one strategy: the sniper, at the code defaults. Copy is not run on market data because no wallet was qualified before the tape. Graduation is not run on market data because a completed curve has no implemented sell. Synthetic rows for those two strategies are mechanism checks and are not added into the sniper book.</p>
+  <p class="sub">$1000 virtual capital is converted at an unobserved 150 USD/SOL only on synthetic fixtures. A positive synthetic number is not an observed profit. Public RPC rows do not include a SOL/USD print, so the smoke sample does not publish a dollar result.</p>
+  <p class="sub">24-hour trial started: no. ${esc((report.forward.blockers || []).map((b) => b.id).join(", "))}</p>
+  ${smokeBlock(report.smoke)}
+  ${baselineBlock(report.baselines)}
   ${rows}
   <section>
     <h2>How this file was produced</h2>
